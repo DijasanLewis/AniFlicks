@@ -1,0 +1,360 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#background-video {
+  width: 100%;
+  height: 105%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  display: none;
+}
+
+#background-video iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: sticky; /* Mengubah dari 'fixed' menjadi 'sticky' */
+  top: 0; /* Menambahkan 'top: 0;' agar tetap di bagian atas saat scrolling */
+}
+
+header .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 4em;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin: 0 1em;
+}
+
+nav ul li a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.search-login {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 4em;
+  width: 50%;
+}
+
+.search {
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  width:max-content;
+  flex-grow: 1;
+}
+
+.input {
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  height: 45px;
+  padding-left: 2.5rem;
+  box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
+  border: 0;
+  border-radius: 12px;
+  background-color: #16171d;
+  outline: none;
+  color: #bdbecb;
+  transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+  cursor: text;
+  z-index: 0;
+}
+
+.input::placeholder {
+  color: #bdbecb;
+}
+
+.input:hover {
+  box-shadow: 0 0 0 2.5px #2f303d, 0px 0px 25px -15px #000;
+}
+
+.input:active {
+  transform: scale(0.95);
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2.5px #2f303d;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  fill: #bdbecb;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.search-login button {
+  margin-left: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.login {
+  padding: 15px 30px;
+  border: 2px solid #2c2c2c;
+  border-radius: 50px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  /* font-size: 1.2rem; */
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.4s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.login::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: scale(0);
+  transition: transform 0.5s ease;
+}
+
+.login:hover::after {
+  transform: scale(4);
+}
+
+.login:hover {
+  border-color: #666666;
+  background: #292929;
+}
+
+
+button.get-started {
+  --primary-color: #ffff;
+  --secondary-color: #002152;
+  --hover-color: #eceff2;
+  --arrow-width: 10px;
+  --arrow-stroke: 2px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 50px;
+  color: var(--secondary-color);
+  padding: 1em 1.8em;
+  background: var(--primary-color);
+  display: flex;
+  transition: 0.2s background;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+}
+
+.get-started .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.get-started .arrow {
+  margin-top: 1px;
+  width: var(--arrow-width);
+  background: var(--primary-color);
+  height: var(--arrow-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+.get-started .arrow::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: solid var(--secondary-color);
+  border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+.get-started:hover {
+  background-color: var(--hover-color);
+}
+
+.get-started:hover .arrow {
+  background: var(--secondary-color);
+}
+
+.get-started:hover .arrow:before {
+  right: 0;
+}
+
+
+
+main {
+  margin-left: 5em;
+}
+
+section{
+  margin-bottom: 10em;
+}
+
+.highlight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2em;
+  height: 30em;
+  text-align:left;
+}
+
+.highlight-content {
+  max-width: 30%;
+}
+
+.highlight-content h1 {
+  font-size: 3.2em;
+  margin: 0.1em 0;
+}
+
+.highlight-content p {
+  margin: 1em 0;
+}
+
+.highlight-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.card {
+  position: relative;
+  background-color: #1e1e1e;
+  border: 1px solid #333333;
+  width: calc(20% - 1em);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card-content {
+  position: absolute; /* Jadikan .card-content sebagai posisi absolut */
+  top: 90%;
+  left: 50%; /* Posisikan di tengah horizontal */
+  transform: translate(-50%, -50%); /* Geser ke tengah dengan nilai negatif setengah lebar dan tinggi */
+  width: 100%; /* Lebar penuh */
+  z-index: 1; /* Tempatkan di atas .card */
+  color: white; /* Warna teks putih */
+  padding: 0.2em; /* Padding untuk penampilan yang lebih baik */
+  box-sizing: border-box; /* Pastikan padding tidak mempengaruhi ukuran keseluruhan */
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.card-content h3, p{
+  margin: 0.5em;
+  padding-left: 0.5em;
+  text-align: left;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 1em 0;
+  color: white;
+  background-color: #1e1e1e;
+  bottom: 0;
+}
+
+.footer-links,
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.show-more {
+  display: block;
+  margin: 2em auto;
+  padding: 0.5em 2em;
+  background-color: #ff4500;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
