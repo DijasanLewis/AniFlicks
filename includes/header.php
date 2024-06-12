@@ -4,7 +4,7 @@
         <ul>
             <li><a href="../templates/home.php">Home</a></li>
             <li><a href="../templates/catalog.php">Katalog</a></li>
-            <li><a href="../templates/watchlist.php">Koleksi</a></li>
+            <li><a href="../templates/watchlist.php">Daftar Tontonan</a></li>
         </ul>
     </nav>
     <div class="search-login">
