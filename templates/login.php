@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once '../includes/config.php';
 if (isset($_SESSION['user_id'])) {
     header("Location: home.php");
     exit();
@@ -19,7 +19,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="content-wrapper">
         <?php include("../includes/header.php")?>
         <div class="login-form">
-            <form class="form" action="../validate_login.php" method="post">
+            <form class="form" action="../user/validate_login.php" method="post">
                 <p id="heading">Masuk</p>
                 <div class="field">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">

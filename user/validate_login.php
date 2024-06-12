@@ -1,6 +1,6 @@
 <?php
-session_start();
-include 'includes/db.php';
+require_once '../includes/config.php';
+$conn = db_connect();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
@@ -13,7 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['user_id'];
-            header("Location: templates/home.php");
+            $_SESSION['username'] = $user['username'];
+            header("Location: ../templates/home.php");
             exit();
         } else {
             echo "Password salah.";

@@ -1,3 +1,7 @@
+<?php
+require_once 'config.php';
+?>
+
 <header>
     <a href="../index.php"><div class="logo">AniFlicks</div></a>
     <nav>
@@ -26,13 +30,23 @@
             />
         </div>
 
-        <a href="../templates/login.php"><button class="login">Masuk</button></a>
-        <a href="../templates/register.php"><button class="get-started">    
-            Daftar
-            <div class="arrow-wrapper">
-                <div class="arrow"></div>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <div class="profile">
+                <a href="../templates/profile.php">
+                    <img src="../assets/images/profile.jpg" alt="Profile Picture" class="profile-pic">
+                    <span class="username"><?php echo $_SESSION['username']; ?></span>
+                </a>
+                <a href="../user/logout.php"><button class="logout">Logout</button></a>
             </div>
-        </button>
-        </a>
+        <?php else: ?>
+            <a href="../templates/login.php"><button class="login">Masuk</button></a>
+            <a href="../templates/register.php"><button class="get-started">    
+                Daftar
+                <div class="arrow-wrapper">
+                    <div class="arrow"></div>
+                </div>
+            </button>
+            </a>
+        <?php endif; ?>
     </div>
 </header>

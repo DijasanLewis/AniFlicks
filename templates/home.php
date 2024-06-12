@@ -24,122 +24,51 @@
             </div>
         </section>
 
-        <section class="special">
-            <h2>Spesial Buat Kamu</h2>
+        <section class="newest">
+            <h2>Terbaru</h2>
             <div class="cards">
-                <!-- Add more cards as needed -->
-                <div class="card">
-                    <img src="https://cdn.myanimelist.net/images/anime/1885/127108l.jpg" alt="Sample Title">
-                    <div class="card-content">
-                        <h3>One Punch Man</h3>
-                        <p>2015, Action </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://cdn.myanimelist.net/images/anime/1885/127108l.jpg" alt="Sample Title">
-                    <div class="card-content">
-                        <h3>One Punch Man</h3>
-                        <p>2015, Action </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://cdn.myanimelist.net/images/anime/1885/127108l.jpg" alt="Sample Title">
-                    <div class="card-content">
-                        <h3>One Punch Man</h3>
-                        <p>2015, Action </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://cdn.myanimelist.net/images/anime/1885/127108l.jpg" alt="Sample Title">
-                    <div class="card-content">
-                        <h3>One Punch Man</h3>
-                        <p>2015, Action </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://cdn.myanimelist.net/images/anime/1885/127108l.jpg" alt="Sample Title">
-                    <div class="card-content">
-                        <h3>One Punch Man</h3>
-                        <p>2015, Action </p>
-                    </div>
-                </div>
-                
+                <?php
+                require_once '../includes/config.php';
+                $conn = db_connect();
+
+                $result = $conn->query("SELECT * FROM titles ORDER BY release_date DESC LIMIT 5");
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="card">';
+                        echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
+                        echo '<div class="card-content">';
+                        echo '<h3>' . $row["name"] . '</h3>';
+                        echo '<p>' . $row["release_date"] . ', ' . $row["genre"] . '</p>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                }
+                $conn->close();
+                ?>
             </div>
         </section>
 
         <section class="featured-collections">
-            <h2>Paling Populer</h2>
-            <div class="cards">
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Sample Collection">
-                    <div class="card-content">
-                        <h3>The Best Mystical Anime</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Sample Collection">
-                    <div class="card-content">
-                        <h3>The Best Mystical Anime</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Sample Collection">
-                    <div class="card-content">
-                        <h3>The Best Mystical Anime</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Sample Collection">
-                    <div class="card-content">
-                        <h3>The Best Mystical Anime</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Sample Collection">
-                    <div class="card-content">
-                        <h3>The Best Mystical Anime</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Sample Collection">
-                    <div class="card-content">
-                        <h3>The Best Mystical Anime</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Sample Collection">
-                    <div class="card-content">
-                        <h3>The Best Mystical Anime</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Sample Collection">
-                    <div class="card-content">
-                        <h3>The Best Mystical Anime</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Sample Collection">
-                    <div class="card-content">
-                        <h3>The Best Mystical Anime</h3>
-                    </div>
-                </div>
+        <h2>Rating Tertinggi</h2>
+        <div class="cards">
+                <?php
+                require_once '../includes/config.php';
+                $conn = db_connect();
 
-                <!-- Add more cards as needed -->
-            </div>
-        </section>
-
-        <section class="trending">
-            <h2>Sedang Trending</h2>
-            <div class="cards">
-                <div class="card">
-                    <img src="images/sample.jpg" alt="Trending Title">
-                    <div class="card-content">
-                        <h3>Trending Title</h3>
-                        <p>2024, Action</p>
-                    </div>
-                </div>
-                <!-- Add more cards as needed -->
+                $result = $conn->query("SELECT * FROM titles ORDER BY rating DESC LIMIT 5");
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="card">';
+                        echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
+                        echo '<div class="card-content">';
+                        echo '<h3>' . $row["name"] . '</h3>';
+                        echo '<p>' . $row["release_date"] . ', ' . $row["genre"] . '</p>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                }
+                $conn->close();
+                ?>
             </div>
         </section>
 
