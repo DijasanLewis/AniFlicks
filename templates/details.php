@@ -20,12 +20,13 @@ $reviews = get_movie_reviews($title_id);
         <?php if (!empty($title['trailer_link'])): ?>
             <img id="background-image" src="https://wallpapercave.com/wp/wp8857859.jpg" alt="Background Image">
             <div id="background-video">
+                <div class="video-overlay"></div>
                 <?php
                     // Mengambil ID video dari URL trailer, mengasumsikan URL mengandung 'v=ID_VIDEO'
                     $video_id = explode("v=", $title['trailer_link']);
                     $video_id = explode("&", $video_id[1])[0];  // Memastikan hanya ID video yang diambil jika ada parameter lain
 
-                    $loopable_link = "https://www.youtube.com/embed/$video_id?autoplay=1&mute=1&loop=1&controls=0&rel=0&showinfo=0&cc_load_policy=0&vq=hd1080&playlist=$video_id";
+                    $loopable_link = "https://www.youtube.com/embed/$video_id?controls=0&rel=0&showinfo=0&autoplay=1&mute=1&loop=1&cc_load_policy=0&vq=hd1080&playlist=$video_id";
                 ?>
                 <iframe id="youtube-iframe" width="100%" height="100%" src="<?= $loopable_link ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>

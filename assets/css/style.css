@@ -32,13 +32,13 @@ a {
 
 #background-video {
   width: 100%;
-  height: 105%;
+  height: 100%;
   object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 0;
-  display: none;
+  display: block;
 }
 
 #background-video iframe {
@@ -47,8 +47,18 @@ a {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
 }
 
+#background-video .video-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.84) 40%, rgba(0, 0, 0, 0) 70%);
+  z-index: 1;
+}
 
 header {
   display: flex;
@@ -57,8 +67,8 @@ header {
   align-items: center;
   padding: 1em 0;
   background-color: rgba(0, 0, 0, 0.8);
-  position: sticky; /* Mengubah dari 'fixed' menjadi 'sticky' */
-  top: 0; /* Menambahkan 'top: 0;' agar tetap di bagian atas saat scrolling */
+  position: sticky;
+  top: 0;
 }
 
 header .logo {
@@ -97,7 +107,7 @@ nav ul li a {
   align-items: center;
   position: relative;
   width: 50%;
-  width:max-content;
+  width: max-content;
   flex-grow: 1;
 }
 
@@ -143,7 +153,6 @@ nav ul li a {
   z-index: 1;
 }
 
-
 .search-login button {
   margin-left: 20px;
   border: none;
@@ -156,9 +165,7 @@ nav ul li a {
   border-radius: 50px;
   background-color: #1a1a1a;
   color: #ffffff;
-  /* font-size: 1.2rem; */
   cursor: pointer;
-  border-radius: 30px;
   transition: all 0.4s ease;
   outline: none;
   position: relative;
@@ -190,7 +197,6 @@ nav ul li a {
   border-color: #666666;
   background: #292929;
 }
-
 
 button.get-started {
   --primary-color: #ffff;
@@ -260,20 +266,20 @@ button.get-started {
   align-items: center;
 }
 
-.profile-pic{
+.profile-pic {
   width: 40px;
   height: 40px;
-  border-radius: 50%; /* membentuk lingkaran */
+  border-radius: 50%;
 }
 
-.profile .username{
+.profile .username {
   margin-left: 10px;
   font-size: large;
 }
 
 /* ======================= */
 
-/* ===== Style Logout ======*/
+/* ===== Style Logout ====== */
 
 .logout {
   --black: #000000;
@@ -293,7 +299,7 @@ button.get-started {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
   background-color: var(--night-rider);
 }
@@ -301,7 +307,7 @@ button.get-started {
 /* plus sign */
 .sign {
   width: 100%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -314,6 +320,7 @@ button.get-started {
 .sign svg path {
   fill: var(--af-white);
 }
+
 /* text */
 .logout-text {
   position: absolute;
@@ -323,41 +330,42 @@ button.get-started {
   color: var(--af-white);
   font-size: 1.2em;
   font-weight: 600;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
+
 /* hover effect on button width */
 .logout:hover {
   width: 125px;
   border-radius: 5px;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .logout:hover .sign {
   width: 30%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   padding-right: 20px;
 }
+
 /* hover effect button's text */
 .logout:hover .logout-text {
   opacity: 1;
   width: 70%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   padding-right: 10px;
 }
-/* button click effect*/
+
+/* button click effect */
 .logout:active {
-  transform: translate(2px ,2px);
+  transform: translate(2px, 2px);
 }
 
 /* ============================== */
-
-
 
 main {
   margin-left: 5em;
 }
 
-section{
+section {
   margin-bottom: 10em;
 }
 
@@ -367,11 +375,13 @@ section{
   align-items: center;
   margin-bottom: 2em;
   height: 30em;
-  text-align:left;
+  text-align: left;
 }
 
 .highlight-content {
   max-width: 30%;
+  border-radius: 10%;
+  padding: 2rem 1rem;
 }
 
 .highlight-content h1 {
@@ -405,23 +415,24 @@ section{
 
 .card img {
   max-width: 100%;
-  object-fit:cover;
+  object-fit: cover;
 }
 
 .card-content {
-  position: absolute; /* Jadikan .card-content sebagai posisi absolut */
+  position: absolute;
   top: 92%;
-  left: 50%; /* Posisikan di tengah horizontal */
-  transform: translate(-50%, -50%); /* Geser ke tengah dengan nilai negatif setengah lebar dan tinggi */
-  width: 100%; /* Lebar penuh */
-  z-index: 1; /* Tempatkan di atas .card */
-  color: white; /* Warna teks putih */
-  padding: 0.5em; /* Padding untuk penampilan yang lebih baik */
-  box-sizing: border-box; /* Pastikan padding tidak mempengaruhi ukuran keseluruhan */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 1;
+  color: white;
+  padding: 0.5em;
+  box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.card-content h3, p{
+.card-content h3,
+p {
   margin: 0.5em;
   padding-left: 0.5em;
   text-align: left;
@@ -463,7 +474,7 @@ footer {
   position: absolute;
   width: 100%;
   background: white;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
 

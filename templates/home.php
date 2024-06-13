@@ -10,6 +10,7 @@
     <div class="background-container">
         <img id="background-image" src="https://furansujapon.com/wp-content/uploads/2022/08/one-punch-man-s3-1052x592.jpg" alt="Background Image">
         <div id="background-video" style="display:none;">
+            <div class="video-overlay"></div>
             <iframe id="youtube-iframe" width="100%" height="100%" src="https://www.youtube.com/embed/h71d0QyZqRE?autoplay=1&mute=1&loop=1&controls=0&rel=0&showinfo=0&cc_load_policy=0&vq=hd1080" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
