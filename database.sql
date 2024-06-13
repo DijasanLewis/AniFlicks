@@ -18,6 +18,7 @@ CREATE TABLE titles (
     writer VARCHAR(255),
     studio VARCHAR(255),
     poster_path VARCHAR(255),
+    background_path VARCHAR(255),
     trailer_link VARCHAR(255),
     sinopsis TEXT
 );

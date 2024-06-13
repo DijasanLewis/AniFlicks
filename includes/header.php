@@ -28,6 +28,7 @@ require_once 'config.php';
                 placeholder="Cari..."
                 name="searchbar"
             />
+            <div id="search-results" class="search-results"></div>
         </div>
         
 
@@ -62,3 +63,4 @@ require_once 'config.php';
         <?php endif; ?>
     </div>
 </header>
+<script src="../assets/js/ajax_search.js"></script>

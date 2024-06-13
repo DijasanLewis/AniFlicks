@@ -153,6 +153,55 @@ nav ul li a {
   z-index: 1;
 }
 
+/* ====== Style hasil live-search ======= */
+.search-results {
+  position: absolute;
+  top: 45px; /* Supaya ada di bawah search bar */
+  background-color: #1e1e1e;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Dipisah agar tidak muncul garis hitam di bawah search bar ketika input kosong*/
+.search-results.has-results {
+  border: 1px solid #333333;
+  display: block;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-decoration: none;
+  color: #fff;
+}
+
+.search-result-item:hover {
+  background-color: #333;
+}
+
+.search-result-item img {
+  width: 4em;
+  height: auto;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.search-result-item .details {
+  flex: 1; /* Mengisi ruang kosong di kanan */
+}
+
+.search-result-item .details h3 {
+  margin: 0.5em 0;
+  font-size: 1em;
+}
+/* ====================================== */
+
+
 .search-login button {
   margin-left: 20px;
   border: none;
@@ -470,38 +519,5 @@ footer {
   cursor: pointer;
 }
 
-.search-results {
-  position: absolute;
-  width: 100%;
-  background: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
 
-.search-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
 
-.search-item:last-child {
-  border-bottom: none;
-}
-
-.search-item img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  margin-right: 10px;
-}
-
-.search-item-info h4 {
-  margin: 0;
-}
-
-.search-item-info p {
-  margin: 0;
-  font-size: 0.8em;
-  color: #666;
-}

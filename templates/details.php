@@ -17,8 +17,8 @@ $reviews = get_movie_reviews($title_id);
 </head>
 <body>
     <div class="background-container">
+        <img id="background-image" src="<?= $title['background_path'] ?>" alt="<?= htmlspecialchars($title['name']) ?>">
         <?php if (!empty($title['trailer_link'])): ?>
-            <img id="background-image" src="https://wallpapercave.com/wp/wp8857859.jpg" alt="Background Image">
             <div id="background-video">
                 <div class="video-overlay"></div>
                 <?php
@@ -30,10 +30,6 @@ $reviews = get_movie_reviews($title_id);
                 ?>
                 <iframe id="youtube-iframe" width="100%" height="100%" src="<?= $loopable_link ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
-
-            </div>
-        <?php else: ?>
-            <img id="background-image" src="<?= $title['poster_path'] ?>" alt="<?= htmlspecialchars($title['name']) ?>">
         <?php endif; ?>
     </div>
     <?php include("../includes/header.php") ?>

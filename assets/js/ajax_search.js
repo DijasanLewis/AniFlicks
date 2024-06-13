@@ -1,28 +1,42 @@
-//Fitur pencarian ajax
-document.addEventListener("DOMContentLoaded", function() {
-    const input = document.getElementById('query');
-    const resultContainer = document.getElementById('search-results');
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('query');
+    const searchResults = document.getElementById('search-results');
 
-    input.addEventListener('keyup', function() {
-        const query = this.value;
-        if (query.length < 3) { // Minimal 3 karakter sebelum melakukan query
-            resultContainer.innerHTML = '';
-            return;
+    searchInput.addEventListener('input', function () {
+        const query = searchInput.value;
+
+        if (query.length > 0) {
+            fetch(`../includes/search.php?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    searchResults.innerHTML = '';
+                    if (data.length > 0) {
+                        searchResults.classList.add('has-results'); //Memunculkan border setelah mendapatkan hasil pencarian
+                        data.forEach(item => {
+                            const resultItem = document.createElement('a');
+                            resultItem.href = `details.php?title_id=${item.title_id}`;
+                            resultItem.classList.add('search-result-item');
+                            resultItem.innerHTML = `
+                                <img src="${item.poster_path}" alt="${item.name}">
+                                <div class="details">
+                                    <h3>${item.name} (${item.year})</h3>
+                                    <small>Genre: ${item.genre}</small>
+                                </div>
+                            `;
+                            searchResults.appendChild(resultItem);
+                        });
+                    } else {
+                        searchResults.classList.remove('has-results');
+                    }
+                });
+        } else {
+            searchResults.innerHTML = '';
         }
+    });
 
-        fetch(`search.php?query=${encodeURIComponent(query)}`)
-            .then(response => response.json())
-            .then(data => {
-                resultContainer.innerHTML = data.map(item => `
-                    <div class="search-item">
-                        <img src="${item.poster_path}" alt="${item.name}">
-                        <div class="search-item-info">
-                            <h4>${item.name}</h4>
-                            <p>${item.year}, ${item.genre}</p>
-                        </div>
-                    </div>
-                `).join('');
-            })
-            .catch(error => console.error('Error:', error));
+    document.addEventListener('click', function (event) {
+        if (!searchResults.contains(event.target) && event.target !== searchInput) {
+            searchResults.innerHTML = '';
+        }
     });
 });

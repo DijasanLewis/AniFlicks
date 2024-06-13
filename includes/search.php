@@ -6,7 +6,7 @@ $query = $_GET['query'] ?? '';
 
 // Hindari SQL Injection
 $stmt = $conn->prepare("
-    SELECT DISTINCT titles.poster_path, titles.name, YEAR(titles.release_date) AS year, titles.genre
+    SELECT DISTINCT titles.title_id, titles.poster_path, titles.name, YEAR(titles.release_date) AS year, titles.genre
     FROM titles
     LEFT JOIN characters ON titles.title_id = characters.title_id
     WHERE titles.name LIKE CONCAT('%', ?, '%') OR
