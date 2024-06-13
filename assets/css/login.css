@@ -21,7 +21,7 @@ header, footer {
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 100vh; /* Make sure it covers the entire viewport height */
+    min-height: 100vh; /* Supaya footer dibawah */
 }
 
 .login-form {
@@ -46,6 +46,7 @@ header, footer {
     background-color: #171717;
     border-radius: 25px;
     transition: .4s ease-in-out;
+    font-size: medium;
 }
 
 .form:hover {
@@ -55,7 +56,7 @@ header, footer {
 
 #heading {
     text-align: center;
-    margin: 2em;
+    margin: 1em;
     color: rgb(255, 255, 255);
     font-size: 1.8em;
 }

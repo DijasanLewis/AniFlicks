@@ -1,33 +1,35 @@
 <?php
-include 'includes/db.php';
+require_once '../includes/config.php';
+$conn = db_connect();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     if ($password == $confirm_password) {
-        // Periksa apakah username sudah ada
-        $check_username = $conn->prepare("SELECT username FROM users WHERE username = ?");
-        $check_username->bind_param("s", $username);
-        $check_username->execute();
-        $check_username->store_result();
+        // Periksa apakah email sudah ada
+        $check_email = $conn->prepare("SELECT email FROM users WHERE email = ?");
+        $check_email->bind_param("s", $email);
+        $check_email->execute();
+        $check_email->store_result();
 
-        if ($check_username->num_rows > 0) {
-            echo "Username sudah terdaftar.";
+        if ($check_email->num_rows > 0) {
+            echo "email sudah terdaftar.";
         } else {
             $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $username, $username, $hashed_password); // Email diisi dengan username untuk sementara, bisa diganti
+            $stmt->bind_param("sss", $username, $email, $hashed_password);
             if ($stmt->execute()) {
-                echo "Pendaftaran berhasil. Silakan <a href='login.php'>login</a>.";
+                echo "Pendaftaran berhasil. Silakan <a href='../templates/login.php'>login</a>.";
             } else {
                 echo "Terjadi kesalahan: " . $stmt->error;
             }
             $stmt->close();
         }
 
-        $check_username->close();
+        $check_email->close();
     } else {
         echo "Password dan Konfirmasi Password tidak cocok.";
     }

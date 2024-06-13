@@ -33,11 +33,22 @@ require_once 'config.php';
 
         <?php if (isset($_SESSION['user_id'])): ?>
             <div class="profile">
-                <a href="../templates/profile.php">
-                    <img src="../assets/images/profile.jpg" alt="Profile Picture" class="profile-pic">
-                    <span class="username"><?php echo $_SESSION['username']; ?></span>
+                <a href="../templates/profile.php" class="profile-link">
+                    <img src="<?php echo $_SESSION['profile_image']; ?>" alt="Profile Picture" class="profile-pic">
+                    <div class="username"><?php echo $_SESSION['username']; ?></div>
                 </a>
-                <a href="../user/logout.php"><button class="logout">Logout</button></a>
+            </div>
+            <div class="logout-button">
+                <a href="../user/logout.php">
+                    <button class="logout">
+                        <div class="sign">
+                            <svg viewBox="0 0 512 512">
+                                <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+                            </svg>
+                        </div>
+                        <div class="logout-text">Logout</div>
+                    </button>
+                </a>
             </div>
         <?php else: ?>
             <a href="../templates/login.php"><button class="login">Masuk</button></a>
