@@ -29,13 +29,13 @@ header, footer {
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 400px;
+    max-width: 20vw;
     margin: 20px; /* Memberikan margin agar tidak terlalu rapat dengan tepi layar pada perangkat kecil */
 }
 
 .form {
     display: flex;
-    width: fit-content;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -57,7 +57,7 @@ header, footer {
     text-align: center;
     margin: 2em;
     color: rgb(255, 255, 255);
-    font-size: 1.2em;
+    font-size: 1.8em;
 }
 
 .field {
@@ -75,8 +75,8 @@ header, footer {
 }
 
 .input-icon {
-    height: 1.3em;
-    width: 1.3em;
+    height: 2em;
+    width: 2em;
     fill: white;
 }
 
@@ -86,6 +86,7 @@ header, footer {
     outline: none;
     width: 100%;
     color: #d3d3d3;
+    font-size: large;
 }
 
 .form .btn {
@@ -105,11 +106,12 @@ header, footer {
     transition: .4s ease-in-out;
     background-color: #252525;
     color: white;
+    font-size: large;
 }
 
 .button1:hover {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 .button2 {

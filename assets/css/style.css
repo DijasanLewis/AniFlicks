@@ -299,7 +299,7 @@ section{
   position: relative;
   background-color: #1e1e1e;
   border: 1px solid #333333;
-  width: calc(20% - 1em);
+  width: 15%;
   box-sizing: border-box;
   text-align: center;
 }
@@ -311,13 +311,13 @@ section{
 
 .card-content {
   position: absolute; /* Jadikan .card-content sebagai posisi absolut */
-  top: 90%;
+  top: 95%;
   left: 50%; /* Posisikan di tengah horizontal */
   transform: translate(-50%, -50%); /* Geser ke tengah dengan nilai negatif setengah lebar dan tinggi */
   width: 100%; /* Lebar penuh */
   z-index: 1; /* Tempatkan di atas .card */
   color: white; /* Warna teks putih */
-  padding: 0.2em; /* Padding untuk penampilan yang lebih baik */
+  padding: 0.5em; /* Padding untuk penampilan yang lebih baik */
   box-sizing: border-box; /* Pastikan padding tidak mempengaruhi ukuran keseluruhan */
   background-color: rgba(0, 0, 0, 0.8);
 }
@@ -357,4 +357,40 @@ footer {
   color: #ffffff;
   border: none;
   cursor: pointer;
+}
+
+.search-results {
+  position: absolute;
+  width: 100%;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.search-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.search-item:last-child {
+  border-bottom: none;
+}
+
+.search-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.search-item-info h4 {
+  margin: 0;
+}
+
+.search-item-info p {
+  margin: 0;
+  font-size: 0.8em;
+  color: #666;
 }

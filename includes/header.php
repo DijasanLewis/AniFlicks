@@ -29,6 +29,7 @@ require_once 'config.php';
                 name="searchbar"
             />
         </div>
+        
 
         <?php if (isset($_SESSION['user_id'])): ?>
             <div class="profile">

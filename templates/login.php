@@ -36,7 +36,6 @@ if (isset($_SESSION['user_id'])) {
                 <div class="btn">
                     <button class="button1">Login</button>
                 </div>
-                <button class="button3">Forgot Password</button>
             </form>
         </div>
         <?php include("../includes/footer.php")?>
