@@ -39,7 +39,9 @@
                         echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
                         echo '<div class="card-content">';
                         echo '<h3>' . $row["name"] . '</h3>';
-                        echo '<p>' . $row["release_date"] . ', ' . $row["genre"] . '</p>';
+                         // Mengambil tahun dari tanggal rilis
+                        $release_year = date('Y', strtotime($row["release_date"]));
+                        echo '<p>' . $release_year . ', ' . $row["genre"] . '</p>';
                         echo '</div>';
                         echo '</a>';
                     }
@@ -63,7 +65,9 @@
                         echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
                         echo '<div class="card-content">';
                         echo '<h3>' . $row["name"] . '</h3>';
-                        echo '<p>' . $row["release_date"] . ', ' . $row["genre"] . '</p>';
+                         // Mengambil tahun dari tanggal rilis
+                        $release_year = date('Y', strtotime($row["release_date"]));
+                        echo '<p>' . $release_year . ', ' . $row["genre"] . '</p>';
                         echo '</div>';
                         echo '</a>';
                     }
