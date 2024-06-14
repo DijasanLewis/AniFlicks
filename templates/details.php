@@ -38,8 +38,7 @@ $reviews = get_movie_reviews($title_id);
             <div class="highlight-content">
                 <h1><?= htmlspecialchars($title['name']) ?></h1>
                 <p><?= htmlspecialchars($title['sinopsis']) ?></p>
-                <button>Learn More</button>
-                <button>To Watch</button>
+                <button class="to-watch-button" data-title-id="<?= $title_id ?>">To Watch</button>
             </div>
         </section>
 
@@ -69,5 +68,33 @@ $reviews = get_movie_reviews($title_id);
     </main>
     <?php include("../includes/footer.php") ?>
     <script src="../assets/js/script.js"></script>
+    <script>
+        function addToWatchlist(titleId) {
+            var formData = new FormData();
+            formData.append('title_id', titleId);
+
+            fetch('../api/update_watchlist.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Tampilkan notifikasi sebagai alert, atau gunakan elemen HTML untuk notifikasi
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Tambahkan event listener untuk tombol To Watch
+        document.addEventListener('DOMContentLoaded', function() {
+            var watchButton = document.querySelector('.to-watch-button');
+            if (watchButton) {
+                watchButton.addEventListener('click', function(event) {
+                    event.preventDefault(); // Menghentikan form dari submit biasa
+                    var titleId = this.getAttribute('data-title-id');
+                    addToWatchlist(titleId);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

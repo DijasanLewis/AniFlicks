@@ -113,4 +113,61 @@ INSERT INTO characters (title_id, name, image_path) VALUES
 (15, 'Curtis Everett', '../assets/images/characters/curtis_everett.jpg'),
 (15, 'Minister Mason', '../assets/images/characters/minister_mason.jpg');
 
+-- Masukkan karakter tambahan untuk anime
+INSERT INTO characters (title_id, name, image_path) VALUES
+(1, 'Armin Arlert', '../assets/images/characters/armin.jpg'),
+(1, 'Levi Ackerman', '../assets/images/characters/levi.jpg'),
+(1, 'Jean Kirstein', '../assets/images/characters/jean.jpg'),
+(2, 'Sakura Haruno', '../assets/images/characters/sakura.jpg'),
+(2, 'Kakashi Hatake', '../assets/images/characters/kakashi.jpg'),
+(2, 'Hinata Hyuga', '../assets/images/characters/hinata.jpg'),
+(3, 'Nami', '../assets/images/characters/nami.jpg'),
+(3, 'Sanji', '../assets/images/characters/sanji.jpg'),
+(3, 'Usopp', '../assets/images/characters/usopp.jpg'),
+(4, 'Giyu Tomioka', '../assets/images/characters/giyu.jpg'),
+(4, 'Zenitsu Agatsuma', '../assets/images/characters/zenitsu.jpg'),
+(4, 'Inosuke Hashibira', '../assets/images/characters/inosuke.jpg'),
+(5, 'All Might', '../assets/images/characters/all_might.jpg'),
+(5, 'Ochaco Uraraka', '../assets/images/characters/ochaco.jpg'),
+(5, 'Shoto Todoroki', '../assets/images/characters/shoto.jpg');
 
+-- Masukkan karakter tambahan untuk film
+INSERT INTO characters (title_id, name, image_path) VALUES
+(6, 'Mal Cobb', '../assets/images/characters/mal.jpg'),
+(6, 'Saito', '../assets/images/characters/saito.jpg'),
+(6, 'Eames', '../assets/images/characters/eames.jpg'),
+(7, 'Amelia Brand', '../assets/images/characters/amelia.jpg'),
+(7, 'Dr. Mann', '../assets/images/characters/dr_mann.jpg'),
+(7, 'TARS', '../assets/images/characters/tars.jpg'),
+(8, 'Trinity', '../assets/images/characters/trinity.jpg'),
+(8, 'Agent Smith', '../assets/images/characters/agent_smith.jpg'),
+(8, 'Oracle', '../assets/images/characters/oracle.jpg'),
+(9, 'Harvey Dent', '../assets/images/characters/harvey.jpg'),
+(9, 'Alfred Pennyworth', '../assets/images/characters/alfred.jpg'),
+(9, 'Rachel Dawes', '../assets/images/characters/rachel.jpg'),
+(10, 'Mia Wallace', '../assets/images/characters/mia.jpg'),
+(10, 'Butch Coolidge', '../assets/images/characters/butch.jpg'),
+(10, 'Captain Koons', '../assets/images/characters/captain_koons.jpg');
+
+-- Masukkan karakter tambahan untuk film Korea
+INSERT INTO characters (title_id, name, image_path) VALUES
+(11, 'Park Da-hye', '../assets/images/characters/da_hye.jpg'),
+(11, 'Yeon-kyo', '../assets/images/characters/yeon_kyo.jpg'),
+(11, 'Moon-gwang', '../assets/images/characters/moon_gwang.jpg'),
+(12, 'Su-an', '../assets/images/characters/su_an.jpg'),
+(12, 'Yong-guk', '../assets/images/characters/yong_guk.jpg'),
+(12, 'Jin-hee', '../assets/images/characters/jin_hee.jpg'),
+(13, 'Mido', '../assets/images/characters/mido.jpg'),
+(13, 'Mr. Park', '../assets/images/characters/mr_park.jpg'),
+(13, 'Yoo Ji-tae', '../assets/images/characters/ji_tae.jpg'),
+(14, 'Hee-bong', '../assets/images/characters/hee_bong.jpg'),
+(14, 'Hyun-seo', '../assets/images/characters/hyun_seo.jpg'),
+(14, 'The Monster', '../assets/images/characters/the_monster.jpg'),
+(15, 'Edgar', '../assets/images/characters/edgar.jpg'),
+(15, 'Tanya', '../assets/images/characters/tanya.jpg'),
+(15, 'Wilford', '../assets/images/characters/wilford.jpg');
+
+
+-- User
+INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `profile_image`) VALUES
+(1, 'Dija', 'yedija@gmail.com', '$2y$10$fhkgbdFkHZnle5I5X7hjb.e155b6FKh3x0CK2FKikE3MFqiGxjQHa', '../assets/images/user_profiles/default_profile.png');

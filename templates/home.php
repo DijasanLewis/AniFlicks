@@ -21,7 +21,10 @@
                 <h1>One Punch Man</h1>
                 <p>The seemingly unimpressive Saitama has a rather unique hobby: being a hero. In order to pursue his childhood dream, Saitama relentlessly trained for three years, losing all of his hair in the process. Now, Saitama is so powerful, he can defeat any enemy with just one punch. However, having no one capable of matching his strength has led Saitama to an unexpected problem—he is no longer able to enjoy the thrill of battling and has become quite bored.</p>
                 <button>Learn More</button>
-                <button>To Watch</button>
+                <form action="add_to_watchlist.php" method="post" style="display: inline;">
+                    <input type="hidden" name="title_id" value="1">
+                    <button type="submit">To Watch</button>
+                </form>
             </div>
         </section>
 
@@ -77,7 +80,7 @@
             </div>
         </section>
 
-        <button class="show-more">Show More</button>
+        <a href="catalog.php"><button class="show-more">Show More</button></a>
     </main>
     <?php include("../includes/footer.php")?>
     <script src="../assets/js/script.js"></script>
