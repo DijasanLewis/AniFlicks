@@ -5,6 +5,7 @@ $title_id = $_GET['title_id'] ?? 1;
 $title = get_movie_details($title_id);
 $characters = get_movie_characters($title_id);
 $reviews = get_movie_reviews($title_id);
+$watchlist_entry = is_movie_in_watchlist($_SESSION['user_id'], $title_id);
 ?>
 
 <!DOCTYPE html>
@@ -17,10 +18,10 @@ $reviews = get_movie_reviews($title_id);
 </head>
 <body>
     <div class="background-container">
+        <div class="video-overlay"></div>
         <img id="background-image" src="<?= $title['background_path'] ?>" alt="<?= htmlspecialchars($title['name']) ?>">
         <?php if (!empty($title['trailer_link'])): ?>
             <div id="background-video">
-                <div class="video-overlay"></div>
                 <?php
                     // Mengambil ID video dari URL trailer, mengasumsikan URL mengandung 'v=ID_VIDEO'
                     $video_id = explode("v=", $title['trailer_link']);
@@ -34,13 +35,25 @@ $reviews = get_movie_reviews($title_id);
     </div>
     <?php include("../includes/header.php") ?>
     <main>
-        <section class="highlight">
-            <div class="highlight-content">
-                <h1><?= htmlspecialchars($title['name']) ?></h1>
-                <p><?= htmlspecialchars($title['sinopsis']) ?></p>
-                <button class="to-watch-button" data-title-id="<?= $title_id ?>">To Watch</button>
+    <section class="highlight">
+        <div class="highlight-content">
+            <h1><?= htmlspecialchars($title['name']) ?></h1>
+            <p><?= htmlspecialchars($title['sinopsis']) ?></p>
+            <div>
+                <?php if (!$watchlist_entry): ?>
+                    <button class="to-watch-button" data-title-id="<?= $title_id ?>">To Watch</button>
+                <?php else: ?>
+                    <h3>Rating!</h3>
+                    <div class="rating">
+                        <?php for ($i = 10; $i >= 1; $i--): ?>
+                            <input value="<?= $i ?>" name="rating" id="star<?= $i ?>" type="radio" <?= $watchlist_entry['rating'] == $i ? 'checked' : '' ?>>
+                            <label for="star<?= $i ?>"></label>
+                        <?php endfor; ?>
+                    </div>
+                <?php endif; ?>
             </div>
-        </section>
+        </div>
+    </section>
 
         <section class="characters">
             <h2>Characters</h2>
@@ -69,20 +82,7 @@ $reviews = get_movie_reviews($title_id);
     <?php include("../includes/footer.php") ?>
     <script src="../assets/js/script.js"></script>
     <script>
-        function addToWatchlist(titleId) {
-            var formData = new FormData();
-            formData.append('title_id', titleId);
-
-            fetch('../api/update_watchlist.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message); // Tampilkan notifikasi sebagai alert, atau gunakan elemen HTML untuk notifikasi
-            })
-            .catch(error => console.error('Error:', error));
-        }
+        
 
         // Tambahkan event listener untuk tombol To Watch
         document.addEventListener('DOMContentLoaded', function() {
@@ -94,6 +94,15 @@ $reviews = get_movie_reviews($title_id);
                     addToWatchlist(titleId);
                 });
             }
+
+            var ratingInputs = document.querySelectorAll('.rating input');
+            ratingInputs.forEach(function(input) {
+                input.addEventListener('change', function() {
+                    var titleId = <?= $title_id ?>;
+                    var rating = this.value;
+                    updateRating(titleId, rating);
+                });
+            });
         });
     </script>
 </body>

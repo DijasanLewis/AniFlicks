@@ -11,4 +11,35 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+function addToWatchlist(titleId) {
+    var formData = new FormData();
+    formData.append('title_id', titleId);
 
+    fetch('../api/update_watchlist.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Tampilkan notifikasi sebagai alert, atau gunakan elemen HTML untuk notifikasi
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function updateRating(titleId, rating) {
+    var formData = new FormData();
+    formData.append('title_id', titleId);
+    formData.append('rating', rating);
+
+    fetch('../api/update_rating.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            alert(data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}

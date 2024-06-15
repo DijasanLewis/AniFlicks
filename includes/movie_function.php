@@ -30,4 +30,21 @@ function get_movie_reviews($title_id) {
     $stmt->close();
     return $result;
 }
+
+function is_movie_in_watchlist($user_id, $title_id) {
+    $conn = db_connect();
+    $stmt = $conn->prepare("SELECT * FROM watchlist WHERE user_id = ? AND title_id = ?");
+    $stmt->bind_param("ii", $user_id, $title_id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
+
+function update_movie_rating($user_id, $title_id, $rating) {
+    $conn = db_connect();
+    $stmt = $conn->prepare("UPDATE watchlist SET rating = ? WHERE user_id = ? AND title_id = ?");
+    $stmt->bind_param("iii", $rating, $user_id, $title_id);
+    $stmt->execute();
+    return $stmt->affected_rows > 0;
+}
+
 ?>

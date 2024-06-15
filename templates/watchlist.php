@@ -124,28 +124,52 @@ $watchlist = get_watchlist($_SESSION['user_id'], $status_filter);
             <?php
                 if ($watchlist->num_rows > 0) {
                     while ($row = $watchlist->fetch_assoc()) {
-                        echo '<div class="card">';
+                        echo '<a href="details.php?title_id=' . $row["title_id"] . '" class="card" data-title-id="' . $row["title_id"] . '">';
                         echo '<img src="' . htmlspecialchars($row["poster_path"]) . '" alt="' . htmlspecialchars($row["name"]) . '">';
                         echo '<div class="card-content">';
                         echo '<h3>' . htmlspecialchars($row["name"]) . '</h3>';
                         echo '<p>' . date('Y', strtotime($row["release_date"])) . ', ' . htmlspecialchars($row["genre"]) . '</p>';
                         echo '</div>';
                         echo '<div class="card-hover-overlay">';
-                        echo '<button class="hover-button" onclick="editStatus(' . $row['title_id'] . ')">Edit Status</button>';
-                        echo '<button class="hover-button" onclick="removeFromWatchlist(' . $row['title_id'] . ')">Remove</button>';
+                        echo '<button class="hover-button edit-button">Edit Status</button>';
+                        echo '<button class="hover-button remove-button">Remove</button>';
                         echo '</div>';
-                        echo '</div>';
+                        echo '</a>';
                     }
                 } else {
                     echo '<p>No titles found.</p>';
                 }
             ?>
+
         </div>
     </main>
     <footer>
         <?php include("../includes/footer.php") ?>
     </footer>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mencegah link <a> diikuti saat tombol ditekan
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('click', event => {
+                    const editButton = event.target.closest('.edit-button');
+                    const removeButton = event.target.closest('.remove-button');
+
+                    if (editButton || removeButton) {
+                        event.preventDefault();  // Mencegah navigasi ke details.php
+                    }
+
+                    if (editButton) {
+                        const titleId = card.getAttribute('data-title-id');
+                        editStatus(titleId);
+                    }
+
+                    if (removeButton) {
+                        const titleId = card.getAttribute('data-title-id');
+                        removeFromWatchlist(titleId);
+                    }
+                });
+            });
+        });
         function editStatus(titleId) {
             var newStatus = prompt("Please enter the new status (Sedang Ditonton, Akan Ditonton, Selesai Ditonton, Ditahan):");
             if (!newStatus) return;  // Jika pengguna membatalkan prompt, hentikan fungsi
