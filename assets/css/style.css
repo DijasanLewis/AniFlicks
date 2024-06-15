@@ -533,6 +533,70 @@ section {
   transition: color 0.3s;
 }
 
+/* CSS detail.php */
+/* CSS untuk halaman detail.php */
+
+/* Grid container untuk bagian Details */
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dua kolom dengan lebar yang sama */
+  gap: 10px; /* Jarak antara kolom */
+}
+
+/* Gaya untuk bagian kiri (informasi umum) */
+
+.details-left dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+  gap: 10px;
+}
+
+.details-left dt {
+  margin-bottom: 5px;
+}
+
+.details-left dd {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+
+.detail-row {
+  display: grid;
+  grid-template-columns: max-content auto; /* Kolom pertama menyesuaikan dengan konten terpanjang, kolom kedua mengambil sisa ruang */
+  align-items: center; /* Posisi vertikal yang sejajar */
+}
+
+.detail-label {
+  font-weight: bold; /* Tebal kanan */
+  margin-right: 10px; /* Jarak samping */
+}
+
+.detail-value {
+  padding: 5px; /* Ruang di dalam elemen */
+}
+
+
+/* Gaya untuk bagian kanan (deskripsi) */
+.details-right {
+  padding: 10px;
+}
+
+/* Gaya untuk judul Details */
+#details h2 {
+  margin-top: 20px; /* Jarak atas untuk judul Details */
+}
+
+
+/* Gaya untuk teks deskripsi */
+#details .details-right p {
+  margin: 10px 0;
+}
+  
+
+/* ======================================================= */
+
+
 footer {
   width: 100%;
   text-align: center;

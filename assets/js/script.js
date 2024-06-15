@@ -43,3 +43,23 @@ function updateRating(titleId, rating) {
     })
     .catch(error => console.error('Error:', error));
 }
+
+function addComment(titleId, comment) {
+    var formData = new FormData();
+    formData.append('title_id', titleId);
+    formData.append('comment', comment);
+
+    fetch('../api/add_comment.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}

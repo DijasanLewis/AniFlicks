@@ -55,28 +55,71 @@ $watchlist_entry = is_movie_in_watchlist($_SESSION['user_id'], $title_id);
         </div>
     </section>
 
-        <section class="characters">
-            <h2>Characters</h2>
+        <nav class="tabs">
+            <button class="tab-button" data-tab="characters">Characters</button>
+            <button class="tab-button" data-tab="details">Details</button>
+            <button class="tab-button" data-tab="reviews">Reviews</button>
+        </nav>
+
+        <section id="characters" class="tab-content">
+            <h2>Karakter</h2>
             <div class="cards">
-            <?php while($char = $characters->fetch_assoc()): ?>
-                <div class="card">
-                    <img src="<?= $char['image_path'] ?>" alt="<?= htmlspecialchars($char['name']) ?>">
-                    <div class="card-content">
-                        <h3><?= htmlspecialchars($char['name']) ?></h3>
+                <?php while($char = $characters->fetch_assoc()): ?>
+                    <div class="card">
+                        <img src="<?= $char['image_path'] ?>" alt="<?= htmlspecialchars($char['name']) ?>">
+                        <div class="card-content">
+                            <h3><?= htmlspecialchars($char['name']) ?></h3>
+                        </div>
                     </div>
-                </div>
-            <?php endwhile; ?>
+                <?php endwhile; ?>
             </div>
         </section>
 
-        <section class="reviews">
-            <h2>Reviews</h2>
-            <?php while($review = $reviews->fetch_assoc()): ?>
-                <div class="review">
-                    <p><strong><?= htmlspecialchars($review['username']) ?>:</strong> <?= htmlspecialchars($review['comment']) ?></p>
-                    <p>Rating: <?= $review['rating'] ?></p>
+        <section id="details" class="tab-content" style="display: none;">
+            <h2>Details</h2>
+            <div class="details-grid">
+                <div class="details-left">
+                        <dl>
+                        <dt>Judul</dt>
+                        <dd><?= htmlspecialchars($title['name']) ?></dd>
+
+                        <dt>Rating</dt>
+                        <dd><?= $title['rating'] ?></dd>
+
+                        <dt>Tanggal Rilis</dt>
+                        <dd><?= date('j F Y', strtotime($title['release_date'])) ?></dd>
+
+                        <dt>Genre</dt>
+                        <dd><?= $title['genre'] ?></dd>
+
+                        <dt>Penulis</dt>
+                        <dd><?= $title['writer'] ?></dd>
+
+                        <dt>Studio</dt>
+                        <dd><?= $title['studio'] ?></dd>
+                    </dl>
                 </div>
-            <?php endwhile; ?>
+                <div class="details-right">
+                    <p><strong>DESKRIPSI:</strong></p>
+                    <p><?= htmlspecialchars($title['description']) ?></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="tab-content" style="display: none;">
+            <h2>ULASAN</h2>
+            <form id="comment-form">
+                <textarea id="comment" name="comment" placeholder="Add your comment" required></textarea>
+                <button type="submit">Beri Komentar</button>
+            </form>
+            <div id="comments">
+                <?php while($review = $reviews->fetch_assoc()): ?>
+                    <div class="review">
+                        <p><strong><?= htmlspecialchars($review['username']) ?>:</strong> <?= htmlspecialchars($review['comment']) ?></p>
+                        <p><small>Posted on: <?= $review['date_posted'] ?></small></p>
+                    </div>
+                <?php endwhile; ?>
+            </div>
         </section>
     </main>
     <?php include("../includes/footer.php") ?>
@@ -102,6 +145,25 @@ $watchlist_entry = is_movie_in_watchlist($_SESSION['user_id'], $title_id);
                     var rating = this.value;
                     updateRating(titleId, rating);
                 });
+            });
+            // Tab functionality
+            var tabButtons = document.querySelectorAll('.tab-button');
+            var tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var tab = this.getAttribute('data-tab');
+                    tabContents.forEach(function(content) {
+                        content.style.display = content.id === tab ? 'block' : 'none';
+                    });
+                });
+            });
+
+            // Comment form submission
+            var commentForm = document.getElementById('comment-form');
+            commentForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                var comment = document.getElementById('comment').value;
+                addComment(<?= $title_id ?>, comment);
             });
         });
     </script>
