@@ -16,13 +16,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $user['email'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['profile_image'] = $user['profile_image'];
+            $_SESSION['is_admin'] = ($user['is_admin'] != 0); // Set is_admin based on database value
             header("Location: ../templates/home.php");
             exit();
         } else {
-            echo "Password salah.";
+            $_SESSION['login_error'] = "Password salah.";
+            header("Location: ../templates/login.php");
+            exit();
         }
     } else {
-        echo "Tidak ada pengguna dengan email tersebut.";
+        $_SESSION['login_error'] = "Email tidak terdafar.";
+        header("Location: ../templates/login.php");
+        exit();
     }
 
     $conn->close();

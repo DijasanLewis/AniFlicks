@@ -146,3 +146,13 @@ header, footer {
     background-color: red;
     color: white;
 }
+
+.error-message {
+    background-color: #ff0000;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}

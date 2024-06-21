@@ -40,5 +40,16 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <?php include("../includes/footer.php")?>
     </div>
+    <script>
+        // JavaScript untuk menampilkan alert jika ada pesan error dari PHP
+        window.onload = function() {
+            <?php
+            if (isset($_SESSION['login_error'])) {
+                echo "alert('{$_SESSION['login_error']}');";
+                unset($_SESSION['login_error']); // Hapus pesan error setelah ditampilkan
+            }
+            ?>
+        }
+    </script>
 </body>
 </html>

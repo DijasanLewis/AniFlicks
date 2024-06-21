@@ -47,4 +47,30 @@ function update_movie_rating($user_id, $title_id, $rating) {
     return $stmt->affected_rows > 0;
 }
 
+function update_movie_details($title_id, $data) {
+    $conn = db_connect();
+    $stmt = $conn->prepare("UPDATE titles SET name=?, rating=?, release_date=?, genre=?, writer=?, studio=?, poster_path=?, background_path=?, trailer_link=?, sinopsis=?, description=? WHERE title_id=?");
+    $stmt->bind_param(
+        "sdsssssssssi",
+        $data['name'],
+        $data['rating'],
+        $data['release_date'],
+        $data['genre'],
+        $data['writer'],
+        $data['studio'],
+        $data['poster_path'],
+        $data['background_path'],
+        $data['trailer_link'],
+        $data['sinopsis'],
+        $data['description'],
+        $title_id
+    );
+    return $stmt->execute();
+}
+
+function generate_unique_id() {
+    return uniqid();
+}
+
+
 ?>
