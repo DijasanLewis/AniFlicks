@@ -1,3 +1,4 @@
+<?php
 include('../includes/config.php');
 
 if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
@@ -10,20 +11,20 @@ $character_ids = $_POST['character_id'];
 $character_names = $_POST['character_name'];
 $character_images = $_FILES['character_image'];
 $current_image_paths = $_POST['current_image_path'];
-$delete_character_ids = $_POST['delete_character_id'] ?? [];
+$delete_character_ids = explode(',', $_POST['delete_character_id']);
 
 $conn = db_connect();
 
-foreach ($character_ids as $index => $character_id) {
-    if (in_array($character_id, $delete_character_ids)) {
-        // Hapus karakter dari database
+foreach ($delete_character_ids as $delete_id) {
+    if ($delete_id) {
         $stmt = $conn->prepare("DELETE FROM characters WHERE character_id = ?");
-        $stmt->bind_param('i', $character_id);
+        $stmt->bind_param('i', $delete_id);
         $stmt->execute();
         $stmt->close();
-        continue;
     }
+}
 
+foreach ($character_ids as $index => $character_id) {
     $name = $character_names[$index];
     $current_image_path = $current_image_paths[$index];
     $image_path = $current_image_path;
@@ -41,8 +42,10 @@ foreach ($character_ids as $index => $character_id) {
         $stmt->bind_param('ssi', $name, $image_path, $character_id);
     }
     $stmt->execute();
+    $stmt->close();
 }
 
 $conn->close();
 
 echo json_encode(['success' => true]);
+?>
