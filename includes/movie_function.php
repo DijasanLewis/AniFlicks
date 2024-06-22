@@ -47,4 +47,15 @@ function update_movie_rating($user_id, $title_id, $rating) {
     return $stmt->affected_rows > 0;
 }
 
+function get_character_suggestions_by_title_id($title_id) {
+    $conn = db_connect();
+    $stmt = $conn->prepare("SELECT * FROM temporary_characters WHERE title_id = ?");
+    $stmt->bind_param("i", $title_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $suggestions = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    return $suggestions;
+}
+
 ?>
