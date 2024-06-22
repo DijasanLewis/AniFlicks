@@ -49,7 +49,6 @@
                         echo '</a>';
                     }
                 }
-                $conn->close();
                 ?>
             </div>
         </section>
@@ -75,7 +74,6 @@
                         echo '</a>';
                     }
                 }
-                $conn->close();
                 ?>
             </div>
         </section>

@@ -15,12 +15,13 @@ define('DB_NAME', 'aniflicks');
 
 // Koneksi ke database
 function db_connect() {
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-    if ($conn->connect_error) {
-        die("Koneksi gagal: " . $conn->connect_error);
+    static $conn;
+    if ($conn === NULL) {
+        $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if ($conn->connect_error) {
+            die("Koneksi gagal: " . $conn->connect_error);
+        }
     }
-
     return $conn;
 }
 

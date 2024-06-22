@@ -628,5 +628,8 @@ footer {
   cursor: pointer;
 }
 
-
+textarea {
+  width:450px;
+  height: 300px;
+}
 

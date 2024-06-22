@@ -115,104 +115,67 @@ if (isset($_SESSION['user_id'])){
                 </div>
             </div>
             <?php if ($is_logged_in): ?>
-            <?php if ($is_admin): ?>
-                <button id="edit-details-button">Edit Details</button>
-                <form id="edit-details-form" action="../api/update_movie.php" method="POST" enctype="multipart/form-data" style="display: none;">
-                    <input type="hidden" name="title_id" value="<?= $title_id ?>">
-                    <div class="details-grid">
-                        <div class="details-left">
-                            <dl>
-                                <dt>Judul</dt>
-                                <dd><input type="text" name="name" value="<?= htmlspecialchars($title['name']) ?>" required></dd>
-
-                                <dt>Rating</dt>
-                                <dd><input type="number" step="0.1" name="rating" value="<?= $title['rating'] ?>" required></dd>
-
-                                <dt>Tanggal Rilis</dt>
-                                <dd><input type="date" name="release_date" value="<?= $title['release_date'] ?>" required></dd>
-
-                                <dt>Genre</dt>
-                                <dd><input type="text" name="genre" value="<?= htmlspecialchars($title['genre']) ?>" required></dd>
-
-                                <dt>Penulis</dt>
-                                <dd><input type="text" name="writer" value="<?= htmlspecialchars($title['writer']) ?>" required></dd>
-
-                                <dt>Studio</dt>
-                                <dd><input type="text" name="studio" value="<?= htmlspecialchars($title['studio']) ?>" required></dd>
-
-                                <dt>Poster</dt>
-                                <dd><input type="file" name="poster_path" required></dd>
-
-                                <dt>Background</dt>
-                                <dd><input type="file" name="background_path" required></dd>
-
-                                <dt>Trailer Link</dt>
-                                <dd><input type="text" name="trailer_link" value="<?= htmlspecialchars($title['trailer_link']) ?>" required></dd>
-
-                                <dt>Sinopsis</dt>
-                                <dd><textarea name="sinopsis" required><?= htmlspecialchars($title['sinopsis']) ?></textarea></dd>
-                            </dl>
-                        </div>
-                        <div class="details-right">
-                            <p><strong>DESKRIPSI:</strong></p>
-                            <textarea name="description" required><?= htmlspecialchars($title['description']) ?></textarea>
-                        </div>
-                    </div>
-                    <button type="submit">Update</button>
-                </form>
+                <?php if ($is_admin): ?>
+                    <button id="edit-details-button">Edit Details</button>
+                    <button id="view-suggestions-button">Lihat Daftar Saran</button>
+                    <form id="edit-details-form" action="../admin/update_movie.php" method="POST" enctype="multipart/form-data" style="display: none;">
                 <?php else: ?>
-                <button id="suggest-details-button">Suggest Edit</button>
-                <form id="suggest-details-form" action="../api/suggest_movie_update.php" method="POST" enctype="multipart/form-data" style="display: none;">
-                    <input type="hidden" name="title_id" value="<?= $title_id ?>">
-                    <div class="details-grid">
-                        <div class="details-left">
-                            <dl>
-                                <dt>Judul</dt>
-                                <dd><input type="text" name="name" value="<?= htmlspecialchars($title['name']) ?>" required></dd>
+                    <button id="suggest-details-button">Suggest Edit</button>
+                    <form id="suggest-details-form" action="../api/suggest_movie_update.php" method="POST" enctype="multipart/form-data" style="display: none;">
+                <?php endif; ?>
+                        <input type="hidden" name="title_id" value="<?= $title_id ?>">
+                        <div class="details-grid">
+                            <div class="details-left">
+                                <dl>
+                                    <dt>Judul</dt>
+                                    <dd><input type="text" name="name" value="<?= htmlspecialchars($title['name']) ?>" required></dd>
 
-                                <dt>Rating</dt>
-                                <dd><input type="number" step="0.1" name="rating" value="<?= $title['rating'] ?>" required></dd>
+                                    <dt>Rating</dt>
+                                    <dd><input type="number" step="0.1" name="rating" value="<?= $title['rating'] ?>" required></dd>
 
-                                <dt>Tanggal Rilis</dt>
-                                <dd><input type="date" name="release_date" value="<?= $title['release_date'] ?>" required></dd>
+                                    <dt>Tanggal Rilis</dt>
+                                    <dd><input type="date" name="release_date" value="<?= $title['release_date'] ?>" required></dd>
 
-                                <dt>Genre</dt>
-                                <dd><input type="text" name="genre" value="<?= htmlspecialchars($title['genre']) ?>" required></dd>
+                                    <dt>Genre</dt>
+                                    <dd><input type="text" name="genre" value="<?= htmlspecialchars($title['genre']) ?>" required></dd>
 
-                                <dt>Penulis</dt>
-                                <dd><input type="text" name="writer" value="<?= htmlspecialchars($title['writer']) ?>" required></dd>
+                                    <dt>Penulis</dt>
+                                    <dd><input type="text" name="writer" value="<?= htmlspecialchars($title['writer']) ?>" required></dd>
 
-                                <dt>Studio</dt>
-                                <dd><input type="text" name="studio" value="<?= htmlspecialchars($title['studio']) ?>" required></dd>
+                                    <dt>Studio</dt>
+                                    <dd><input type="text" name="studio" value="<?= htmlspecialchars($title['studio']) ?>" required></dd>
 
-                                <dt>Poster</dt>
-                                <dd><input type="file" name="poster_path" required></dd>
+                                    <dt>Poster</dt>
+                                    <dd>
+                                        <input type="file" name="poster_path" id="poster_path">
+                                        <img id="poster_preview" src="#" alt="Poster Preview" style="display: none; width: 100px;">
+                                    </dd>
 
-                                <dt>Background</dt>
-                                <dd><input type="file" name="background_path" required></dd>
+                                    <dt>Background</dt>
+                                    <dd>
+                                        <input type="file" name="background_path" id="background_path">
+                                        <img id="background_preview" src="#" alt="Background Preview" style="display: none; width: 100px;">
+                                    </dd>
 
-                                <dt>Trailer Link</dt>
-                                <dd><input type="text" name="trailer_link" value="<?= htmlspecialchars($title['trailer_link']) ?>" required></dd>
+                                    <dt>Trailer Link</dt>
+                                    <dd><input type="text" name="trailer_link" value="<?= htmlspecialchars($title['trailer_link']) ?>" required></dd>
 
-                                <dt>Sinopsis</dt>
-                                <dd><textarea name="sinopsis" required><?= htmlspecialchars($title['sinopsis']) ?></textarea></dd>
-                            </dl>
+                                    <dt>Sinopsis</dt>
+                                    <dd><textarea name="sinopsis" required><?= htmlspecialchars($title['sinopsis']) ?></textarea></dd>
+                                </dl>
+                            </div>
+                            <div class="details-right">
+                                <p><strong>DESKRIPSI:</strong></p>
+                                <textarea name="description" required><?= htmlspecialchars($title['description']) ?></textarea>
+                            </div>
                         </div>
-                        <div class="details-right">
-                            <p><strong>DESKRIPSI:</strong></p>
-                            <textarea name="description" required><?= htmlspecialchars($title['description']) ?></textarea>
-                        </div>
-                    </div>
-                    <button type="submit">Submit Suggestion</button>
-                </form>
-            <?php endif; ?>
+                        <button type="submit">Submit Suggestion</button>
+                    </form>
             <?php endif; ?>
             <div id="confirmation-message" style="display: none;">
                 <p>Terima kasih! Perubahan yang kamu ajukan akan ditinjau kembali oleh Admin!</p>
             </div>
         </section>
-
-
         <section id="reviews" class="tab-content" style="display: none;">
             <h2>ULASAN</h2>
             <form id="comment-form">
@@ -247,7 +210,7 @@ if (isset($_SESSION['user_id'])){
             if (editButton) {
                 editButton.addEventListener('click', function() {
                     detailsStatic.style.display = 'none';
-                    detailsForm.style.display = 'block';
+                    detailsForm.style.display = 'grid';
                 });
             }
 
@@ -266,16 +229,21 @@ if (isset($_SESSION['user_id'])){
                         method: 'POST',
                         body: formData
                     }).then(response => response.text()).then(data => {
+                        // PESAN NGETES
+                        window.onload = function() {
+                            alert('TES');
+                        }
+                        // PESAN NGETES
                         suggestForm.style.display = 'none';
                         confirmationMessage.style.display = 'block';
                         setTimeout(() => {
                             confirmationMessage.style.display = 'none';
-                            detailsStatic.style.display = 'block';
+                            detailsStatic.style.display = 'grid';
                         }, 3000); // Mengembalikan tampilan detail menjadi statis setelah 3 detik
                     }).catch(error => console.error('Error:', error));
                 });
             }
-
+ 
             // Tambahkan event listener untuk tombol To Watch
             var watchButton = document.querySelector('.to-watch-button');
             if (watchButton) {
@@ -316,6 +284,38 @@ if (isset($_SESSION['user_id'])){
                 var comment = document.getElementById('comment').value;
                 addComment(<?= $title_id ?>, comment);
             });
+
+            // Preview Poster Image
+            var posterInput = document.getElementById('poster_path');
+            var posterPreview = document.getElementById('poster_preview');
+            posterInput.addEventListener('change', function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    posterPreview.src = e.target.result;
+                    posterPreview.style.display = 'block';
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            // Preview Background Image
+            var backgroundInput = document.getElementById('background_path');
+            var backgroundPreview = document.getElementById('background_preview');
+            backgroundInput.addEventListener('change', function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    backgroundPreview.src = e.target.result;
+                    backgroundPreview.style.display = 'block';
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            // Untuk melihat daftar saran dari user biasa
+            var viewSuggestionsButton = document.getElementById('view-suggestions-button');
+                if (viewSuggestionsButton) {
+                    viewSuggestionsButton.addEventListener('click', function() {
+                        window.location.href = '../admin/view_suggestions.php?title_id=<?= $title_id ?>';
+                    });
+                }
         });
     </script>
 </body>
