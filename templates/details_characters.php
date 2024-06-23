@@ -20,7 +20,7 @@ $is_logged_in = isset($_SESSION['user_id']);
         </div>
     <?php endwhile; ?>
 </div>
-<form id="characters-edit-form" action="../admin/update_characters.php" method="POST" enctype="multipart/form-data" style="display: none;">
+<form id="characters-edit-form" method="POST" enctype="multipart/form-data" style="display: none;">
     <input type="hidden" name="title_id" value="<?= $title_id ?>">
     <input type="hidden" name="delete_character_id" id="delete-character-ids">
     <div class="cards" id="characters-edit-cards">
@@ -39,7 +39,7 @@ $is_logged_in = isset($_SESSION['user_id']);
         <?php endwhile; ?>
     </div>
     <button type="button" id="add-character-button">Tambah Karakter</button>
-    <button type="submit" id="save-characters-button">Simpan Perubahan</button>
+    <button type="button" id="save-characters-button">Simpan Perubahan</button>
 </form>
 <div id="character-suggestions" style="display: none;">
     <h3>Saran Karakter</h3>
@@ -191,7 +191,7 @@ $is_logged_in = isset($_SESSION['user_id']);
                                             alert('Karakter berhasil ditambahkan');
                                             location.reload();
                                         } else {
-                                            alert('Gagal menambahkan karakter');
+                                            alert('Gagal menambahkan karakter: ' + data.message);
                                         }
                                     }).catch(error => {
                                         console.error('Error:', error);
@@ -236,5 +236,25 @@ $is_logged_in = isset($_SESSION['user_id']);
                     .catch(error => console.error('Error:', error));
             });
         }
+
+        // Fungsi untuk menyimpan perubahan karakter
+        saveCharactersButton.addEventListener('click', function() {
+            var formData = new FormData(charactersEditForm);
+            var actionUrl = charactersEditForm.action === '../api/suggest_character_update.php' ? '../api/suggest_character_update.php' : '../admin/update_characters.php';
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    alert('Perubahan berhasil disimpan');
+                    location.reload();
+                } else {
+                    alert('Gagal menyimpan perubahan: ' + data.message);
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan pada server. Periksa log untuk detail lebih lanjut.');
+            });
+        });
     });
 </script>

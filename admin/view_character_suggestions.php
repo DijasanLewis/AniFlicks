@@ -13,7 +13,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 $suggestions = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
-$conn->close();
 
 echo json_encode(['success' => true, 'suggestions' => $suggestions]);
 ?>
