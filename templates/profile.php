@@ -22,7 +22,7 @@
             border-radius: 10px;
         }
 
-        .profile-pic {
+        .profile-picture {
             width: 100px;
             height: 100px;
             border-radius: 50%;
@@ -55,7 +55,7 @@
     <main style="margin-top: 5em; display: flex; justify-content: center;">
         <div class="profile-container">
             <div class="profile-card">
-                <img src="<?= $_SESSION['profile_image'] ?>" alt="Profile Image" class="profile-pic">
+                <img src="<?= $_SESSION['profile_image'] ?>" alt="Profile Image" class="profile-picture">
                 <h3><?= $_SESSION['username'] ?></h3>
                 <p>Email: <?= $_SESSION['email'] ?></p>
                 <button class="btn-edit">Edit Profile</button>
