@@ -79,12 +79,15 @@ if (isset($_SESSION['user_id'])){
         <section id="reviews" class="tab-content" style="display: none;">
             <?php include('../templates/details_reviews.php'); ?>
         </section>
+        <?php if ($is_admin): ?>
+            <button class="delete-movie-button button3" data-title-id="<?= $title_id ?>">Hapus Film</button>
+        <?php endif; ?>
     </main>
     <?php include("../includes/footer.php") ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
         // Mendapatkan status login dari PHP
-        var isLoggedIn = typeof isLoggedIn !== 'undefined' ? isLoggedIn : false;
+        var isLoggedIn = <?= json_encode($is_logged_in); ?>;    
         var baseUrl = typeof baseUrl !== 'undefined' ? baseUrl : '';
 
         // Fungsi untuk menangani fungsionalitas tab
@@ -124,7 +127,7 @@ if (isset($_SESSION['user_id'])){
 
         // Fungsi untuk menambahkan film ke watchlist
         function addToWatchlist(titleId) {
-            fetch('../api/add_to_watchlist.php', {
+            fetch('../api/update_watchlist.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title_id: titleId })
@@ -165,7 +168,7 @@ if (isset($_SESSION['user_id'])){
 
         // Fungsi untuk memuat lebih banyak ulasan
         function loadMoreReviews() {
-            var titleId = document.querySelector('main').getAttribute('data-title-id');
+            var titleId = <?= $title_id ?>;
             fetch(`../api/load_more_reviews.php?title_id=${titleId}`)
                 .then(response => response.json())
                 .then(data => {
@@ -192,11 +195,37 @@ if (isset($_SESSION['user_id'])){
                 loadMoreReviews();
             });
         }
-    });
 
+        // Event listener untuk tombol "Hapus Film"
+        var deleteButton = document.querySelector('.delete-movie-button');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (confirm('Apakah Anda yakin ingin menghapus film ini?')) {
+                    var titleId = this.getAttribute('data-title-id');
+                    deleteMovie(titleId);
+                    window.location.href = '../templates/catalog.php';
+                }
+            });
+        }
+
+        // Fungsi untuk menghapus film
+        function deleteMovie(titleId) {
+            fetch('../admin/delete_title.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title_id: titleId })
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    alert('Film berhasil dihapus');
+                    window.location.href = '../templates/catalog.php'; // Redirect to catalog page
+                } else {
+                    alert('Gagal menghapus film');
+                }
+            }).catch(error => console.error('Error:', error));
+        }
+    });
     </script>
-    <script src="../templates/js/characters.js"></script>
-    <script src="../templates/js/details.js"></script>
-    <script src="../templates/js/reviews.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

@@ -467,6 +467,7 @@ section {
   width: 220px;
   box-sizing: border-box;
   text-align: center;
+  margin: 1em 0;
 }
 
 .card img {
@@ -629,11 +630,6 @@ footer {
   cursor: pointer;
 }
 
-textarea {
-  width:450px;
-  height: 300px;
-}
-
 /* BUTTON-BUTTON */
 .button1 { 
   font-size: medium;
@@ -692,4 +688,24 @@ textarea {
 
 .tab-button {
   font-size: large;
+}
+
+
+/* Untuk detail deskripsi */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.suggestion-item {
+  padding: 10px;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #1e1e1e;
+}
+
+.suggestion-item p {
+  margin: 5px 0;
 }

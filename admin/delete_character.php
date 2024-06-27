@@ -1,6 +1,5 @@
 <?php
 include('../includes/config.php');
-session_start();
 
 if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);

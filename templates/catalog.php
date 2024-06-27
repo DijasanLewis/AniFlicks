@@ -15,6 +15,10 @@ $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : 'name ASC';
 
 // Mengambil data berdasarkan filter dan urutan
 $titles = get_titles($genre_filter, $order_by);
+
+// Menentukan apakah user adalah admin
+$is_admin = $_SESSION['is_admin'] ?? false;
+$is_logged_in = isset($_SESSION['user_id']);
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +81,27 @@ $titles = get_titles($genre_filter, $order_by);
             }
             ?>
         </div>
+
+        <?php if ($is_logged_in): ?>
+            <div class="admin-controls">
+                <a href="add_title.php" class="button1">Tambah Film</a>
+                <?php if ($is_admin): ?>
+                    <button id="view-suggestions-button" class="button2">Lihat Saran Film</button>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </main>
     <?php include("../includes/footer.php") ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var viewSuggestionsButton = document.getElementById('view-suggestions-button');
+
+        if (viewSuggestionsButton) {
+            viewSuggestionsButton.addEventListener('click', function() {
+                window.location.href = '../admin/view_title_suggestions.php';
+            });
+        }
+    });
+    </script>
 </body>
 </html>

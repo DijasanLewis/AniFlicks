@@ -1,8 +1,6 @@
 <?php
 include('../includes/config.php');
-
-// Aktifkan output buffering untuk mencegah output yang tidak diinginkan
-ob_start();
+session_start();
 
 header('Content-Type: application/json');
 
@@ -12,12 +10,12 @@ if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
     exit();
 }
 
-// Mengambil suggestion_id dari permintaan POST
+// Mengambil title_id dari permintaan POST
 $data = json_decode(file_get_contents('php://input'), true);
-$suggestion_id = $data['suggestion_id'] ?? null;
+$title_id = $data['title_id'] ?? null;
 
-if (!$suggestion_id) {
-    echo json_encode(['success' => false, 'message' => 'Suggestion ID is missing']);
+if (!$title_id) {
+    echo json_encode(['success' => false, 'message' => 'Title ID is missing']);
     exit();
 }
 
@@ -29,25 +27,22 @@ if (!$conn) {
     exit();
 }
 
-// Menghapus saran karakter dari tabel temporary_characters
-$stmt = $conn->prepare("DELETE FROM temporary_characters WHERE id = ?");
+// Menghapus film dari tabel titles
+$stmt = $conn->prepare("DELETE FROM titles WHERE title_id = ?");
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Statement preparation failed: ' . $conn->error]);
     exit();
 }
 
-$stmt->bind_param('i', $suggestion_id);
+$stmt->bind_param('i', $title_id);
 $success = $stmt->execute();
 
 if ($success) {
     echo json_encode(['success' => true]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Failed to delete suggestion: ' . $stmt->error]);
+    echo json_encode(['success' => false, 'message' => 'Failed to delete movie: ' . $stmt->error]);
 }
 
 $stmt->close();
 $conn->close();
-
-// Bersihkan output buffering sebelum mengirimkan respons JSON
-ob_end_flush();
 ?>

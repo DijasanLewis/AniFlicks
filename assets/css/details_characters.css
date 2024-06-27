@@ -5,3 +5,32 @@
     margin-top: 20px;
 }
 
+.input-description{
+    font-family: Arial, Helvetica, sans-serif;
+    width: fit-content;
+    height: fit-content;
+    padding-left: 1rem;
+    border-radius: 2px;
+}
+
+.input-text-small {
+    width: 300px;
+    height: 100px;
+}
+
+.input-text-big {
+    width: 500px;
+    height: 100px;
+}
+
+.suggestion-card {
+    width: 1000px;
+    padding: 0.5em;
+    margin: 0.3em 0;
+    box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
+    border: 0;
+    border-radius: 12px;
+    background-color: #16171d;
+    outline: none;
+    color: #bdbecb;
+}

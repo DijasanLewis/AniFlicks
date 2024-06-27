@@ -33,129 +33,81 @@ $is_logged_in = isset($_SESSION['user_id']);
 </div>
 <?php if ($is_logged_in): ?>
     <?php if ($is_admin): ?>
-        <button id="edit-details-button">Edit Details</button>
+        <button id="edit-details-button" class="button1">Edit Detail</button>
+        <button id="view-suggestions-button" class="button2">Lihat Saran</button>
         <form id="edit-details-form" action="../admin/update_movie.php" method="POST" enctype="multipart/form-data" style="display: none;">
-    <?php else: ?>
-        <button id="suggest-details-button">Suggest Edit</button>
-        <form id="suggest-details-form" action="../api/suggest_movie_update.php" method="POST" enctype="multipart/form-data" style="display: none;">
-    <?php endif; ?>
-        <input type="hidden" name="title_id" value="<?= $title_id ?>">
-        <div class="details-grid">
-            <div class="details-left">
-                <dl>
-                    <dt>Judul</dt>
-                    <dd><input type="text" name="name" value="<?= htmlspecialchars($title['name']) ?>" required></dd>
+            <input type="hidden" name="title_id" value="<?= $title_id ?>">
+            <div class="details-grid">
+                <div class="details-left">
+                    <dl>
+                        <dt>Judul</dt>
+                        <dd><input type="text" name="name" class="input input-description" value="<?= htmlspecialchars($title['name']) ?>" required></dd>
 
-                    <dt>Rating</dt>
-                    <dd><input type="number" step="0.1" name="rating" value="<?= $title['rating'] ?>" required></dd>
+                        <dt>Rating</dt>
+                        <dd><input type="number" step="0.1" name="rating" class="input input-description" value="<?= $title['rating'] ?>" required></dd>
 
-                    <dt>Tanggal Rilis</dt>
-                    <dd><input type="date" name="release_date" value="<?= $title['release_date'] ?>" required></dd>
+                        <dt>Tanggal Rilis</dt>
+                        <dd><input type="date" name="release_date" class="input input-description" value="<?= $title['release_date'] ?>" required></dd>
 
-                    <dt>Genre</dt>
-                    <dd><input type="text" name="genre" value="<?= htmlspecialchars($title['genre']) ?>" required></dd>
+                        <dt>Genre</dt>
+                        <dd><input type="text" name="genre" class="input input-description" value="<?= htmlspecialchars($title['genre']) ?>" required></dd>
 
-                    <dt>Penulis</dt>
-                    <dd><input type="text" name="writer" value="<?= htmlspecialchars($title['writer']) ?>" required></dd>
+                        <dt>Penulis</dt>
+                        <dd><input type="text" name="writer" class="input input-description" value="<?= htmlspecialchars($title['writer']) ?>" required></dd>
 
-                    <dt>Studio</dt>
-                    <dd><input type="text" name="studio" value="<?= htmlspecialchars($title['studio']) ?>" required></dd>
+                        <dt>Studio</dt>
+                        <dd><input type="text" name="studio" class="input input-description" value="<?= htmlspecialchars($title['studio']) ?>" required></dd>
 
-                    <dt>Poster</dt>
-                    <dd>
-                        <input type="file" name="poster_path" id="poster_path">
-                        <img id="poster_preview" src="#" alt="Poster Preview" style="display: none; width: 100px;">
-                    </dd>
+                        <dt>Poster</dt>
+                        <dd>
+                            <input type="file" name="poster_path" id="poster_path">
+                            <img id="poster_preview" src="#" alt="Poster Preview" style="display: none; width: 100px;">
+                        </dd>
 
-                    <dt>Background</dt>
-                    <dd>
-                        <input type="file" name="background_path" id="background_path">
-                        <img id="background_preview" src="#" alt="Background Preview" style="display: none; width: 100px;">
-                    </dd>
+                        <dt>Background</dt>
+                        <dd>
+                            <input type="file" name="background_path" id="background_path">
+                            <img id="background_preview" src="#" alt="Background Preview" style="display: none; width: 100px;">
+                        </dd>
 
-                    <dt>Trailer Link</dt>
-                    <dd><input type="text" name="trailer_link" value="<?= htmlspecialchars($title['trailer_link']) ?>" required></dd>
+                        <dt>Trailer Link</dt>
+                        <dd><input type="text" name="trailer_link" class="input input-description" value="<?= htmlspecialchars($title['trailer_link']) ?>" required></dd>
 
-                    <dt>Sinopsis</dt>
-                    <dd><textarea name="sinopsis" required><?= htmlspecialchars($title['sinopsis']) ?></textarea></dd>
-                </dl>
+                        <dt>Sinopsis</dt>
+                        <dd><textarea name="sinopsis" class="input input-description input-text-small" required><?= htmlspecialchars($title['sinopsis']) ?></textarea></dd>
+                    </dl>
+                </div>
+                <div class="details-right">
+                    <p><strong>DESKRIPSI:</strong></p>
+                    <textarea name="description" class="input input-description input-text-big" required><?= htmlspecialchars($title['description']) ?></textarea>
+                </div>
             </div>
-            <div class="details-right">
-                <p><strong>DESKRIPSI:</strong></p>
-                <textarea name="description" required><?= htmlspecialchars($title['description']) ?></textarea>
+            <div class="button-container">
+                <button type="submit" class="button1">Simpan Perubahan</button>
+            </div>
+        </form>
+    <?php else: ?>
+        <button id="suggest-details-button" class="button3">Suggest Edit</button>
+        <div id="suggest-details-form" style="display: none;">
+            <input type="hidden" name="title_id" value="<?= $title_id ?>">
+            <textarea id="suggestion-text" placeholder="Masukkan saran Anda disini..." required></textarea>
+            <div class="button-container">
+                <button type="button" id="submit-suggestion-button" class="button1">Kirim Saran</button>
+                <button type="button" id="cancel-suggestion-button" class="button2">Batal</button>
             </div>
         </div>
-        <button type="submit">Submit Suggestion</button>
-    </form>
+    <?php endif; ?>
 <?php endif; ?>
 <div id="confirmation-message" style="display: none;">
     <p>Terima kasih! Perubahan yang kamu ajukan akan ditinjau kembali oleh Admin!</p>
 </div>
+<div id="suggestions-list" style="display: none;">
+    <h3>Saran Pengguna</h3>
+    <button id="delete-all-suggestions-button" class="button3">Hapus Semua Saran</button>
+    <div id="suggestions-container"></div>
+</div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    var editButton = document.getElementById('edit-details-button');
-    var suggestButton = document.getElementById('suggest-details-button');
-    var detailsForm = document.getElementById('edit-details-form');
-    var suggestForm = document.getElementById('suggest-details-form');
-    var detailsStatic = document.getElementById('details-static');
-    var confirmationMessage = document.getElementById('confirmation-message');
-
-    if (editButton) {
-        editButton.addEventListener('click', function() {
-            detailsStatic.style.display = 'none';
-            detailsForm.style.display = 'grid';
-        });
-    }
-
-    if (suggestButton) {
-        suggestButton.addEventListener('click', function() {
-            detailsStatic.style.display = 'none';
-            suggestForm.style.display = 'block';
-        });
-    }
-
-    if (suggestForm) {
-        suggestForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            var formData = new FormData(suggestForm);
-            fetch('../api/suggest_movie_update.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.text()).then(data => {
-                alert('Saran berhasil dikirim');
-                suggestForm.style.display = 'none';
-                confirmationMessage.style.display = 'block';
-                setTimeout(() => {
-                    confirmationMessage.style.display = 'none';
-                    detailsStatic.style.display = 'grid';
-                }, 3000);
-            }).catch(error => console.error('Error:', error));
-        });
-    }
-
-    // Preview Poster Image
-    var posterInput = document.getElementById('poster_path');
-    var posterPreview = document.getElementById('poster_preview');
-    posterInput.addEventListener('change', function() {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            posterPreview.src = e.target.result;
-            posterPreview.style.display = 'block';
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
-
-    // Preview Background Image
-    var backgroundInput = document.getElementById('background_path');
-    var backgroundPreview = document.getElementById('background_preview');
-    backgroundInput.addEventListener('change', function() {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            backgroundPreview.src = e.target.result;
-            backgroundPreview.style.display = 'block';
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
-});
-
+    var title_id = <?= json_encode($title_id); ?>;
 </script>
+<script src="../assets/js/details_descriptions.js"></script>
+

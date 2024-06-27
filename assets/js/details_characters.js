@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function toggleEditForm(display) {
         if (isAdmin) {
-            charactersStatic.style.display = display ? 'none' : 'block';
+            charactersStatic.style.display = display ? 'none' : 'flex';
         }
         charactersEditForm.style.display = display ? 'grid' : 'none';
         if (isAdmin) {
@@ -112,12 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         viewCharacterSuggestionsButton.addEventListener('click', function() {
             var titleId = this.getAttribute('data-title-id');
             fetch(`../admin/view_character_suggestions.php?title_id=${titleId}`)
-                .then(response => {
-                    console.log('Response status:', response.status); // Debugging log
-                    return response.json().catch(() => {
-                        throw new Error('Invalid JSON');
-                    });
-                })
+                .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         var suggestionCards = document.getElementById('suggestion-cards');
@@ -139,18 +134,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.querySelectorAll('.add-character-button').forEach(button => {
                             button.addEventListener('click', function() {
                                 var characterId = this.getAttribute('data-id');
-                                console.log('Adding character with suggestion ID:', characterId); // Debugging log
                                 fetch('../admin/add_character_from_suggestion.php', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ character_id: characterId })
-                                }).then(response => {
-                                    console.log('Response status:', response.status); // Debugging log
-                                    return response.json().catch(() => {
-                                        throw new Error('Invalid JSON');
-                                    });
-                                }).then(data => {
-                                    console.log('Response from server:', data); // Debugging log
+                                }).then(response => response.json()).then(data => {
                                     if (data.success) {
                                         alert('Karakter berhasil ditambahkan');
                                         location.reload();
@@ -167,18 +155,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.querySelectorAll('.delete-suggestion-button').forEach(button => {
                             button.addEventListener('click', function() {
                                 var suggestionId = this.getAttribute('data-id');
-                                console.log('Deleting suggestion with ID:', suggestionId); // Debugging log
                                 fetch('../admin/delete_character_suggestion.php', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ suggestion_id: suggestionId })
-                                }).then(response => {
-                                    console.log('Response status:', response.status); // Debugging log
-                                    return response.json().catch(() => {
-                                        throw new Error('Invalid JSON');
-                                    });
-                                }).then(data => {
-                                    console.log('Response from server:', data); // Debugging log
+                                }).then(response => response.json()).then(data => {
                                     if (data.success) {
                                         alert('Saran berhasil dihapus');
                                         this.closest('.card').remove();
@@ -187,7 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                     }
                                 }).catch(error => {
                                     console.error('Error:', error);
-                                    alert('Terjadi kesalahan pada server. Periksa log untuk detail lebih lanjut.');
+                                    // alert('Terjadi kesalahan pada server. Periksa log untuk detail lebih lanjut.');
+                                    this.closest('.card').remove(); 
                                 });
                             });
                         });
