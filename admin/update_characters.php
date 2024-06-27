@@ -1,5 +1,5 @@
 <?php
-include('../includes/config.php');
+require_once('../includes/config.php');
 
 if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);

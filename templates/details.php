@@ -3,7 +3,6 @@ include('../includes/movie_function.php'); // Load fungsi-fungsi film
 
 $title_id = $_GET['title_id'] ?? 1;
 $title = get_movie_details($title_id);
-$characters = get_movie_characters($title_id);
 $reviews = get_movie_reviews($title_id);
 $watchlist_entry = NULL;
 $is_admin = FALSE;
@@ -24,6 +23,7 @@ if (isset($_SESSION['user_id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($title['name']) ?> - AniFlicks</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/details_characters.css">
 </head>
 <body>
     <div class="background-container">
@@ -48,7 +48,7 @@ if (isset($_SESSION['user_id'])){
                 <p><?= htmlspecialchars($title['sinopsis']) ?></p>
                 <div>
                     <?php if (!$watchlist_entry): ?>
-                        <button class="to-watch-button" data-title-id="<?= $title_id ?>">To Watch</button>
+                        <button class="to-watch-button button1" data-title-id="<?= $title_id ?>">To Watch</button>
                     <?php else: ?>
                         <h3>Rating!</h3>
                         <div class="rating">
@@ -63,9 +63,9 @@ if (isset($_SESSION['user_id'])){
         </section>
 
         <nav class="tabs">
-            <button class="tab-button" data-tab="characters">Characters</button>
-            <button class="tab-button" data-tab="details">Details</button>
-            <button class="tab-button" data-tab="reviews">Reviews</button>
+            <button class="tab-button button2" data-tab="characters">Characters</button>
+            <button class="tab-button button2" data-tab="details">Details</button>
+            <button class="tab-button button2" data-tab="reviews">Reviews</button>
         </nav>
 
         <section id="characters" class="tab-content">

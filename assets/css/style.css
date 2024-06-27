@@ -457,6 +457,7 @@ section {
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
+  margin: 1em 0 2em;
 }
 
 .card {
@@ -633,3 +634,62 @@ textarea {
   height: 300px;
 }
 
+/* BUTTON-BUTTON */
+.button1 { 
+  font-size: medium;
+  padding: 0.5em 1.1em;
+  border-radius: 5px;
+  margin-right: 0.5em;
+  border: none;
+  outline: none;
+  transition: .4s ease-in-out;
+  background-color: #252525;
+  color: white;
+}
+
+.button1:hover {
+  background-color: white;
+  color: black;
+}
+
+.button2 {
+  font-size: medium;
+  padding: 0.5em;
+  padding-left: 2.3em;
+  padding-right: 2.3em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  transition: .4s ease-in-out;
+  background-color: #252525;
+  color: white;
+}
+
+.button2:hover {
+  background-color: black;
+  color: white;
+}
+
+.button3 {
+  font-size: medium;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  transition: .4s ease-in-out;
+  background-color: #252525;
+  color: white;
+}
+
+.button3:hover {
+  background-color: red;
+  color: white;
+}
+
+.tabs{
+  margin-top: 5em;
+}
+
+.tab-button {
+  font-size: large;
+}

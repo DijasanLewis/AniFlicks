@@ -1,0 +1,7 @@
+.button-container {
+    display: flex;
+    width: fit-content;
+    justify-content: space-between; /* Atur tombol untuk memiliki jarak antara mereka */
+    margin-top: 20px;
+}
+
