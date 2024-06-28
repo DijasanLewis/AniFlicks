@@ -48,15 +48,18 @@ if ($result->num_rows > 0) {
                 <div class="slider-wrapper">
                     <div class="slider-content">
                         <?php
-                        foreach ($top_rated_movies as $movie) {
-                            echo '<a href="details.php?title_id=' . $movie["title_id"] . '" class="card">';
-                            echo '<img src="' . $movie["poster_path"] . '" alt="' . $movie["name"] . '">';
-                            echo '<div class="card-content">';
-                            echo '<h3>' . $movie["name"] . '</h3>';
-                            $release_year = date('Y', strtotime($movie["release_date"]));
-                            echo '<p>' . $release_year . ', ' . $movie["genre"] . '</p>';
-                            echo '</div>';
-                            echo '</a>';
+                        $result = $conn->query("SELECT * FROM titles ORDER BY rating DESC LIMIT 10");
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<a href="details.php?title_id=' . $row["title_id"] . '" class="card">';
+                                echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
+                                echo '<div class="card-content">';
+                                echo '<h3>' . $row["name"] . '</h3>';
+                                $release_year = date('Y', strtotime($row["release_date"]));
+                                echo '<p>' . $release_year . ', ' . $row["genre"] . '</p>';
+                                echo '</div>';
+                                echo '</a>';
+                            }
                         }
                         ?>
                     </div>
@@ -72,7 +75,7 @@ if ($result->num_rows > 0) {
                 <div class="slider-wrapper">
                     <div class="slider-content">
                         <?php
-                        $result = $conn->query("SELECT * FROM titles ORDER BY release_date DESC LIMIT 5");
+                        $result = $conn->query("SELECT * FROM titles ORDER BY release_date DESC LIMIT 10");
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 echo '<a href="details.php?title_id=' . $row["title_id"] . '" class="card">';
