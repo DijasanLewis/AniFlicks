@@ -58,4 +58,36 @@ function get_character_suggestions_by_title_id($title_id) {
     return $suggestions;
 }
 
+// Fungsi untuk mengambil data watchlist
+function get_watchlist($user_id, $status = '', $sort_by = 'name') {
+    $conn = db_connect();
+    $query = "SELECT titles.*, watchlist.watched FROM titles JOIN watchlist ON titles.title_id = watchlist.title_id WHERE watchlist.user_id = ?";
+    if (!empty($status)) {
+        $query .= " AND watchlist.watched = ?";
+    }
+    switch ($sort_by) {
+        case 'name':
+            $query .= " ORDER BY titles.name ASC";
+            break;
+        case 'year':
+            $query .= " ORDER BY titles.release_date DESC";
+            break;
+        case 'rating':
+            $query .= " ORDER BY watchlist.rating DESC";
+            break;
+        default:
+            $query .= " ORDER BY titles.name ASC";
+    }
+    $stmt = $conn->prepare($query);
+    if (!empty($status)) {
+        $stmt->bind_param("is", $user_id, $status);
+    } else {
+        $stmt->bind_param("i", $user_id);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $conn->close();
+    return $result;
+}
+
 ?>

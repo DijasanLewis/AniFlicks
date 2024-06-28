@@ -1,3 +1,19 @@
+<?php
+require_once '../includes/config.php';
+
+// Mengambil 10 film dengan rating tertinggi
+$conn = db_connect();
+$result = $conn->query("SELECT * FROM titles ORDER BY rating DESC LIMIT 10");
+
+$top_rated_movies = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $top_rated_movies[] = $row;
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,82 +21,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AniFlicks</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/slider.css">
 </head>
 <body>
     <div class="background-container">
-        <img id="background-image" src="https://furansujapon.com/wp-content/uploads/2022/08/one-punch-man-s3-1052x592.jpg" alt="Background Image">
+        <img id="background-image" src="<?= $top_rated_movies[0]['background_path'] ?>" alt="Background Image">
+        <div class="video-overlay"></div>
         <div id="background-video" style="display:none;">
-            <div class="video-overlay"></div>
-            <iframe id="youtube-iframe" width="100%" height="100%" src="https://www.youtube.com/embed/h71d0QyZqRE?autoplay=1&mute=1&loop=1&controls=0&rel=0&showinfo=0&cc_load_policy=0&vq=hd1080" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe id="youtube-iframe" width="100%" height="100%" src="<?= $top_rated_movies[0]['trailer_link'] ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
-    <?php include("../includes/header.php")?>
+    <?php include("../includes/header.php") ?>
     <main>
         <section class="highlight">
             <div class="highlight-content">
-                <h1>One Punch Man</h1>
-                <p>The seemingly unimpressive Saitama has a rather unique hobby: being a hero. In order to pursue his childhood dream, Saitama relentlessly trained for three years, losing all of his hair in the process. Now, Saitama is so powerful, he can defeat any enemy with just one punch. However, having no one capable of matching his strength has led Saitama to an unexpected problem—he is no longer able to enjoy the thrill of battling and has become quite bored.</p>
-                <button>Learn More</button>
-                <form action="add_to_watchlist.php" method="post" style="display: inline;">
-                    <input type="hidden" name="title_id" value="1">
-                    <button type="submit">To Watch</button>
-                </form>
+                <h1><?= htmlspecialchars($top_rated_movies[0]['name']) ?></h1>
+                <p><?= htmlspecialchars($top_rated_movies[0]['sinopsis']) ?></p>
+                <a href="details.php?title_id=<?= $top_rated_movies[0]['title_id'] ?>" class="button1" id="lihat-film-button">Lihat Film</a>
             </div>
         </section>
 
-        <section class="newest">
+        <section class="slider">
+            <h2>Rating Tertinggi</h2>
+            <div class="slider-container">
+                <button class="slider-prev">&#10094;</button>
+                <div class="slider-wrapper">
+                    <div class="slider-content">
+                        <?php
+                        foreach ($top_rated_movies as $movie) {
+                            echo '<a href="details.php?title_id=' . $movie["title_id"] . '" class="card">';
+                            echo '<img src="' . $movie["poster_path"] . '" alt="' . $movie["name"] . '">';
+                            echo '<div class="card-content">';
+                            echo '<h3>' . $movie["name"] . '</h3>';
+                            $release_year = date('Y', strtotime($movie["release_date"]));
+                            echo '<p>' . $release_year . ', ' . $movie["genre"] . '</p>';
+                            echo '</div>';
+                            echo '</a>';
+                        }
+                        ?>
+                    </div>
+                </div>
+                <button class="slider-next">&#10095;</button>
+            </div>
+        </section>
+
+        <section class="slider">
             <h2>Terbaru</h2>
-            <div class="cards">
-                <?php
-                require_once '../includes/config.php';
-                $conn = db_connect();
-
-                $result = $conn->query("SELECT * FROM titles ORDER BY release_date DESC LIMIT 5");
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<a href="details.php?title_id=' . $row["title_id"] . '" class="card">';
-                        echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
-                        echo '<div class="card-content">';
-                        echo '<h3>' . $row["name"] . '</h3>';
-                         // Mengambil tahun dari tanggal rilis
-                        $release_year = date('Y', strtotime($row["release_date"]));
-                        echo '<p>' . $release_year . ', ' . $row["genre"] . '</p>';
-                        echo '</div>';
-                        echo '</a>';
-                    }
-                }
-                ?>
+            <div class="slider-container">
+                <button class="slider-prev">&#10094;</button>
+                <div class="slider-wrapper">
+                    <div class="slider-content">
+                        <?php
+                        $result = $conn->query("SELECT * FROM titles ORDER BY release_date DESC LIMIT 5");
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<a href="details.php?title_id=' . $row["title_id"] . '" class="card">';
+                                echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
+                                echo '<div class="card-content">';
+                                echo '<h3>' . $row["name"] . '</h3>';
+                                $release_year = date('Y', strtotime($row["release_date"]));
+                                echo '<p>' . $release_year . ', ' . $row["genre"] . '</p>';
+                                echo '</div>';
+                                echo '</a>';
+                            }
+                        }
+                        ?>
+            </div>
+                </div>
+                <button class="slider-next">&#10095;</button>
             </div>
         </section>
 
-        <section class="featured-collections">
-        <h2>Rating Tertinggi</h2>
-        <div class="cards">
-                <?php
-                require_once '../includes/config.php';
-                $conn = db_connect();
-
-                $result = $conn->query("SELECT * FROM titles ORDER BY rating DESC LIMIT 5");
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<a href="details.php?title_id=' . $row["title_id"] . '" class="card">';
-                        echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
-                        echo '<div class="card-content">';
-                        echo '<h3>' . $row["name"] . '</h3>';
-                         // Mengambil tahun dari tanggal rilis
-                        $release_year = date('Y', strtotime($row["release_date"]));
-                        echo '<p>' . $release_year . ', ' . $row["genre"] . '</p>';
-                        echo '</div>';
-                        echo '</a>';
-                    }
-                }
-                ?>
-            </div>
-        </section>
-
-        <a href="catalog.php"><button class="show-more">Show More</button></a>
+        <a href="catalog.php"><button class="button1 mid-button">Lihat Lebih Banyak</button></a>
     </main>
-    <?php include("../includes/footer.php")?>
-    <script src="../assets/js/script.js"></script>
+    <?php include("../includes/footer.php") ?>
+    <script>
+        var topRatedMovies = <?= json_encode($top_rated_movies); ?>;
+    </script>
+    <script src="../assets/js/home.js"></script>
+    <script src="../assets/js/slider.js"></script>
 </body>
 </html>

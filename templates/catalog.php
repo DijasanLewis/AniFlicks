@@ -28,30 +28,26 @@ $is_logged_in = isset($_SESSION['user_id']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalog - AniFlicks</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <!-- Penambahan style khusus untuk halaman catalog -->
-    <style>
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-        .card {
-            width: 220px; /* Sesuai dengan ukuran di style.css */
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/catalog.css">
+
 </head>
 <body>
     <?php include("../includes/header.php") ?>
     <main>
         <div class="filter-controls">
             <form action="catalog.php" method="GET">
-                Genre: <input type="checkbox" name="genre" value="Action" /> Action
-                <input type="checkbox" name="genre" value="Adventure" /> Adventure
-                <input type="checkbox" name="genre" value="Drama" /> Drama
+                Genre: 
+                <label>
+                    <input type="checkbox" name="genre" value="Action" /> Action
+                </label>
+                <label>
+                    <input type="checkbox" name="genre" value="Adventure" /> Adventure
+                </label>
+                <label>
+                    <input type="checkbox" name="genre" value="Drama" /> Drama
+                </label>
                 <!-- Tambahkan checklist genre lainnya -->
-                Urutan 1: 
+                Urutan:
                 <select name="order_by">
                     <option value="name ASC">Nama Menaik</option>
                     <option value="name DESC">Nama Menurun</option>
@@ -60,9 +56,10 @@ $is_logged_in = isset($_SESSION['user_id']);
                     <option value="rating ASC">Rating Menaik</option>
                     <option value="rating DESC">Rating Menurun</option>
                 </select>
-                <button type="submit">Filter</button>
+                <button type="submit" class="button1">Filter</button>
             </form>
         </div>
+
         <div class="card-container">
             <?php
             if ($titles->num_rows > 0) {
@@ -84,7 +81,7 @@ $is_logged_in = isset($_SESSION['user_id']);
 
         <?php if ($is_logged_in): ?>
             <div class="admin-controls">
-                <a href="add_title.php" class="button1">Tambah Film</a>
+                <a href="add_title.php"><button class="button1 mid-button">Tambah Film</button></a>
                 <?php if ($is_admin): ?>
                     <button id="view-suggestions-button" class="button2">Lihat Saran Film</button>
                 <?php endif; ?>
@@ -93,15 +90,15 @@ $is_logged_in = isset($_SESSION['user_id']);
     </main>
     <?php include("../includes/footer.php") ?>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var viewSuggestionsButton = document.getElementById('view-suggestions-button');
+        document.addEventListener('DOMContentLoaded', function() {
+            var viewSuggestionsButton = document.getElementById('view-suggestions-button');
 
-        if (viewSuggestionsButton) {
-            viewSuggestionsButton.addEventListener('click', function() {
-                window.location.href = '../admin/view_title_suggestions.php';
-            });
-        }
-    });
+            if (viewSuggestionsButton) {
+                viewSuggestionsButton.addEventListener('click', function() {
+                    window.location.href = '../admin/view_title_suggestions.php';
+                });
+            }
+        });
     </script>
 </body>
 </html>

@@ -6,7 +6,9 @@ check_login();
 
 $response = [];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title_id = $_POST['title_id'];
+    // Mengambil data dari body request
+    $data = json_decode(file_get_contents('php://input'), true);
+    $title_id = $data['title_id'];
     $user_id = $_SESSION['user_id']; // Asumsi bahwa user_id disimpan dalam session saat login
 
     // Koneksi ke database
@@ -20,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($result->num_rows == 0) {
         // Tambahkan ke database jika belum ada
-        $stmt = $conn->prepare("INSERT INTO watchlist (user_id, title_id, watched) VALUES (?, ?, 'Sedang Ditonton')");
+        $stmt = $conn->prepare("INSERT INTO watchlist (user_id, title_id, watched) VALUES (?, ?, 'Akan Ditonton')");
         $stmt->bind_param("ii", $user_id, $title_id);
         $stmt->execute();
         $stmt->close();

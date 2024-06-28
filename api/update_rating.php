@@ -1,22 +1,43 @@
 <?php
-include('../includes/movie_function.php');
+require_once '../includes/config.php';
 
-$user_id = $_SESSION['user_id'] ?? 0;
+// Cek apakah user telah login
+check_login();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title_id = $_POST['title_id'];
-    $rating = $_POST['rating'];
+$response = [];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $title_id = $data['title_id'];
+    $rating = $data['rating'];
+    $user_id = $_SESSION['user_id']; // Asumsi bahwa user_id disimpan dalam session saat login
 
-    if ($user_id && $title_id && $rating) {
-        if (update_movie_rating($user_id, $title_id, $rating)) {
-            echo json_encode(['success' => true, 'message' => 'Rating updated!']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to update rating.']);
-        }
+    // Koneksi ke database
+    $conn = db_connect();
+
+    // Periksa apakah judul sudah ada dalam watchlist
+    $check = $conn->prepare("SELECT * FROM watchlist WHERE title_id = ? AND user_id = ?");
+    $check->bind_param("ii", $title_id, $user_id);
+    $check->execute();
+    $result = $check->get_result();
+    
+    if ($result->num_rows > 0) {
+        // Perbarui rating jika sudah ada
+        $stmt = $conn->prepare("UPDATE watchlist SET rating = ? WHERE title_id = ? AND user_id = ?");
+        $stmt->bind_param("iii", $rating, $title_id, $user_id);
+        $stmt->execute();
+        $stmt->close();
+        $response['message'] = "Rating updated!";
+        $response['success'] = true;
     } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid input.']);
+        $response['message'] = "Title not found in watchlist!";
+        $response['success'] = false;
     }
+
+    $conn->close();
 } else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+    $response['message'] = "Invalid request.";
+    $response['success'] = false;
 }
-?>
+
+header('Content-Type: application/json');
+echo json_encode($response);

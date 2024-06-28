@@ -17,9 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['title_id'], $_POST['ne
     $stmt = $conn->prepare("UPDATE watchlist SET watched = ? WHERE title_id = ? AND user_id = ?");
     $stmt->bind_param("sii", $new_status, $title_id, $user_id);
     if ($stmt->execute()) {
-        echo json_encode(['message' => 'Status updated successfully', 'success' => true]);
+        echo json_encode(['message' => 'Berhasil Mengubah Status', 'success' => true]);
     } else {
-        echo json_encode(['message' => 'Failed to update status', 'success' => false]);
+        echo json_encode(['message' => 'Gagal Mengubah Status', 'success' => false]);
     }
     $stmt->close();
     $conn->close();
