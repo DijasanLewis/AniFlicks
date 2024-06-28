@@ -1,5 +1,5 @@
 <?php
-include('../includes/movie_function.php'); // Load fungsi-fungsi film
+require_once('../includes/movie_function.php'); // Load fungsi-fungsi film
 
 $title_id = $_GET['title_id'] ?? 1;
 $title = get_movie_details($title_id);
@@ -63,9 +63,9 @@ if (isset($_SESSION['user_id'])){
         </section>
 
         <nav class="tabs">
-            <button class="tab-button button2" data-tab="characters">Characters</button>
-            <button class="tab-button button2" data-tab="details">Details</button>
-            <button class="tab-button button2" data-tab="reviews">Reviews</button>
+            <button class="tab-button button2" data-tab="characters">Karakter</button>
+            <button class="tab-button button2" data-tab="details">Detail</button>
+            <button class="tab-button button2" data-tab="reviews">Ulasan</button>
         </nav>
 
         <section id="characters" class="tab-content">

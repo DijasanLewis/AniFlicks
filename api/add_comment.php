@@ -14,15 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("iis", $title_id, $user_id, $comment);
 
         if ($stmt->execute()) {
-            echo json_encode(['success' => true, 'message' => 'Comment added!']);
+            echo json_encode(['success' => true, 'message' => 'Komentar berhasil ditambahkan!']);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to add comment.']);
+            echo json_encode(['success' => false, 'message' => 'Gagal Menambahkan Komentar.']);
         }
 
         $stmt->close();
         $conn->close();
     } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid input.']);
+        echo json_encode(['success' => false, 'message' => 'Pengguna Belum Login atau Input Tidak Valid.']);
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);

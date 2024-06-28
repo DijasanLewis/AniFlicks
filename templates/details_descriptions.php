@@ -87,10 +87,10 @@ $is_logged_in = isset($_SESSION['user_id']);
             </div>
         </form>
     <?php else: ?>
-        <button id="suggest-details-button" class="button3">Suggest Edit</button>
+        <button id="suggest-details-button" class="button3">Sarankan Perubahan</button>
         <div id="suggest-details-form" style="display: none;">
             <input type="hidden" name="title_id" value="<?= $title_id ?>">
-            <textarea id="suggestion-text" placeholder="Masukkan saran Anda disini..." required></textarea>
+            <textarea id="suggestion-text" class="input input-description input-text-small" placeholder="Masukkan saran Anda disini..." required></textarea>
             <div class="button-container">
                 <button type="button" id="submit-suggestion-button" class="button1">Kirim Saran</button>
                 <button type="button" id="cancel-suggestion-button" class="button2">Batal</button>

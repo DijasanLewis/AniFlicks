@@ -22,16 +22,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
             $stmt->bind_param("sss", $username, $email, $hashed_password);
             if ($stmt->execute()) {
-                echo "Pendaftaran berhasil. Silakan <a href='../templates/login.php'>login</a>.";
+                $_SESSION['messages'] = "Pendaftaran Akun Berhasil. Silahkan Login!.";
+                header("Location: ../templates/login.php");
+                exit();
             } else {
-                echo "Terjadi kesalahan: " . $stmt->error;
+                $_SESSION['messages'] = "Terjadi kesalahan: " . $stmt->error;
+                header("Location: ../templates/register.php");
+                exit();
             }
             $stmt->close();
         }
 
         $check_email->close();
     } else {
-        echo "Password dan Konfirmasi Password tidak cocok.";
+        $_SESSION['messages'] = "Password dan Konfirmasi Password tidak cocok.";
+        header("Location: ../templates/register.php");
+        exit();
     }
 
     $conn->close();

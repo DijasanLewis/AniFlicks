@@ -1,6 +1,5 @@
 <?php
 include('../includes/config.php');
-session_start();
 
 header('Content-Type: application/json');
 

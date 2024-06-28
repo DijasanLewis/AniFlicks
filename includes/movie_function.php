@@ -23,7 +23,7 @@ function get_movie_characters($title_id) {
 
 function get_movie_reviews($title_id) {
     $conn = db_connect();
-    $stmt = $conn->prepare("SELECT reviews.*, users.username FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE title_id = ?");
+    $stmt = $conn->prepare("SELECT reviews.*, users.username FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE title_id = ? ORDER BY date_posted DESC    ");
     $stmt->bind_param("i", $title_id);
     $stmt->execute();
     $result = $stmt->get_result();

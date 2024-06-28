@@ -21,12 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../templates/home.php");
             exit();
         } else {
-            $_SESSION['login_error'] = "Password salah.";
+            $_SESSION['messages'] = "Password salah.";
             header("Location: ../templates/login.php");
             exit();
         }
     } else {
-        $_SESSION['login_error'] = "Email tidak terdafar.";
+        $_SESSION['messages'] = "Email tidak terdafar.";
         header("Location: ../templates/login.php");
         exit();
     }

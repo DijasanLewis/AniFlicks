@@ -44,9 +44,9 @@ if (isset($_SESSION['user_id'])) {
         // JavaScript untuk menampilkan alert jika ada pesan error dari PHP
         window.onload = function() {
             <?php
-            if (isset($_SESSION['login_error'])) {
-                echo "alert('{$_SESSION['login_error']}');";
-                unset($_SESSION['login_error']); // Hapus pesan error setelah ditampilkan
+            if (isset($_SESSION['messages'])) {
+                echo "alert('{$_SESSION['messages']}');";
+                unset($_SESSION['messages']); // Hapus pesan error setelah ditampilkan
             }
             ?>
         }

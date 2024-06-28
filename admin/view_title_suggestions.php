@@ -32,11 +32,11 @@ $conn->close();
                     echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
                     echo '<div class="suggestion-content">';
                     echo '<h3>' . $row["name"] . '</h3>';
-                    echo '<p>' . $row["genre"] . '</p>';
-                    echo '<p>' . $row["username"] . '</p>';
-                    echo '<p>' . $row["release_date"] . '</p>';
-                    echo '<button class="approve-button" data-id="' . $row["id"] . '">Approve</button>';
-                    echo '<button class="delete-button" data-id="' . $row["id"] . '">Delete</button>';
+                    echo '<p>Genre: ' . $row["genre"] . '</p>';
+                    echo '<p>Username: ' . $row["username"] . '</p>';
+                    echo '<p>Tahun Rilis: ' . $row["release_date"] . '</p>';
+                    echo '<button class="approve-button button1" data-id="' . $row["id"] . '">Masukkan Film</button>';
+                    echo '<button class="delete-button button3" data-id="' . $row["id"] . '">Hapus</button>';
                     echo '</div>';
                     echo '</div>';
                 }
@@ -58,10 +58,10 @@ $conn->close();
                     body: JSON.stringify({ id: id })
                 }).then(response => response.json()).then(data => {
                     if (data.success) {
-                        alert('Title approved successfully!');
+                        alert('Film berhasil ditambahkan!');
                         location.reload();
                     } else {
-                        alert('Failed to approve title.');
+                        alert('Gagal menambahkan film.');
                     }
                 }).catch(error => console.error('Error:', error));
             });
@@ -76,10 +76,10 @@ $conn->close();
                     body: JSON.stringify({ id: id })
                 }).then(response => response.json()).then(data => {
                     if (data.success) {
-                        alert('Title deleted successfully!');
+                        alert('Saran Tambahan Film Berhasil Dihapus!');
                         location.reload();
                     } else {
-                        alert('Failed to delete title.');
+                        alert('Gagal menghapus.');
                     }
                 }).catch(error => console.error('Error:', error));
             });

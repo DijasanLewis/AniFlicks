@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
     $title_id = $data['title_id'];
     $rating = $data['rating'];
-    $user_id = $_SESSION['user_id']; // Asumsi bahwa user_id disimpan dalam session saat login
+    $user_id = $_SESSION['user_id']; 
 
     // Koneksi ke database
     $conn = db_connect();

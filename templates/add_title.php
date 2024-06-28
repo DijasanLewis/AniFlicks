@@ -68,6 +68,6 @@ check_login();
         </form>
     </main>
     <?php include("../includes/footer.php") ?>
-    <script src="../includes/add_title.js"></script>
+    <script src="../assets/js/add_title.js"></script>
 </body>
 </html>

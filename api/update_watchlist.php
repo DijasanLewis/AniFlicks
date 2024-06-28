@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Mengambil data dari body request
     $data = json_decode(file_get_contents('php://input'), true);
     $title_id = $data['title_id'];
-    $user_id = $_SESSION['user_id']; // Asumsi bahwa user_id disimpan dalam session saat login
+    $user_id = $_SESSION['user_id']; 
 
     // Koneksi ke database
     $conn = db_connect();
@@ -26,10 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ii", $user_id, $title_id);
         $stmt->execute();
         $stmt->close();
-        $response['message'] = "Added to watchlist!";
+        $response['message'] = "Berhasil ditambahkan ke daftar tontonan!";
         $response['status'] = 'success';
     } else {
-        $response['message'] = "Already in watchlist!";
+        $response['message'] = "Sudah ada di daftar tontonan!";
         $response['status'] = 'info';
     }
 

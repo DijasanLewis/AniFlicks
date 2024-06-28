@@ -83,7 +83,7 @@ $is_logged_in = isset($_SESSION['user_id']);
             <div class="admin-controls">
                 <a href="add_title.php"><button class="button1 mid-button">Tambah Film</button></a>
                 <?php if ($is_admin): ?>
-                    <button id="view-suggestions-button" class="button2">Lihat Saran Film</button>
+                    <button id="view-suggestions-button" class="button3 mid-button">Lihat Saran Film</button>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
@@ -99,6 +99,16 @@ $is_logged_in = isset($_SESSION['user_id']);
                 });
             }
         });
+
+        // JavaScript untuk menampilkan alert jika ada pesan error dari PHP
+        window.onload = function() {
+            <?php
+            if (isset($_SESSION['messages'])) {
+                echo "alert('{$_SESSION['messages']}');";
+                unset($_SESSION['messages']); // Hapus pesan error setelah ditampilkan
+            }
+            ?>
+        }
     </script>
 </body>
 </html>

@@ -16,9 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['title_id'])) {
     $stmt = $conn->prepare("DELETE FROM watchlist WHERE title_id = ? AND user_id = ?");
     $stmt->bind_param("ii", $title_id, $user_id);
     if ($stmt->execute()) {
-        echo json_encode(['message' => 'Title removed from watchlist successfully', 'success' => true]);
+        echo json_encode(['message' => 'Film berhasil dihapus dari daftar tontonan!', 'success' => true]);
     } else {
-        echo json_encode(['message' => 'Failed to remove title', 'success' => false]);
+        echo json_encode(['message' => 'Gagal menghapus film', 'success' => false]);
     }
     $stmt->close();
     $conn->close();

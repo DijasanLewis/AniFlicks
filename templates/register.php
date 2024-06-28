@@ -44,5 +44,16 @@
         </div>
         <?php include("../includes/footer.php")?>
     </div>
+    <script>
+        // JavaScript untuk menampilkan alert jika ada pesan dari PHP
+        window.onload = function() {
+            <?php
+            if (isset($_SESSION['messages'])) {
+                echo "alert('{$_SESSION['messages']}');";
+                unset($_SESSION['messages']); // Hapus pesan setelah ditampilkan
+            }
+            ?>
+        }
+    </script>
 </body>
 </html>

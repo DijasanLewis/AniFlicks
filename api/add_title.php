@@ -35,15 +35,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if ($stmt->execute()) {
-            echo json_encode(['success' => true, 'message' => 'Title added successfully!']);
+            echo json_encode(['success' => true, 'message' => 'Film Baru Berhasil Ditambahkan!']);
+            $_SESSION['messages'] = "Film Berhasil Ditambahkan!";
+            header("Location: ../templates/catalog.php");
+            exit();
         } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to add title.']);
+            echo json_encode(['success' => false, 'message' => 'Gagal Menambah Film Baru.']);
+            $_SESSION['messages'] = "Gagal Menambah Film Baru.";
+            header("Location: ../templates/catalog.php");
+            exit();
         }
 
         $stmt->close();
         $conn->close();
     } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to upload files.']);
+        echo json_encode(['success' => false, 'message' => 'Gagal Mengupload File.']);
+        $_SESSION['messages'] = "Gagal Mengupload File.";
+        header("Location: ../templates/add_title.php");
+        exit();
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);

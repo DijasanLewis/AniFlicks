@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         watchButton.addEventListener('click', function(event) {
             event.preventDefault(); // Menghentikan form dari submit biasa
             if (!isLoggedIn) {
-                window.location.href = baseUrl + '/templates/login.php'; // Redirect to login page if not logged in
+                window.location.href = baseUrl + '../templates/login.php'; // Redirect to login page if not logged in
             } else {
                 var titleId = this.getAttribute('data-title-id');
                 addToWatchlist(titleId);
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fungsi untuk menghapus film
     function deleteMovie(titleId) {
-        fetch('../api/delete_movie.php', {
+        fetch('../admin/delete_title.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title_id: titleId })

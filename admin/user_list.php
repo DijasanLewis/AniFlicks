@@ -14,7 +14,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List - AniFlicks</title>
+    <title>Daftar User - AniFlicks</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/user_list.css">
 </head>
@@ -22,14 +22,14 @@ $result = $conn->query($sql);
     <?php include("../includes/header.php"); ?>
     <main class="main-container">
         <div class="container">
-            <h2>User List</h2>
+            <h2>Daftar User</h2>
             <table>
                 <thead>
                     <tr>
                         <th>Username</th>
                         <th>Email</th>
                         <th>Admin</th>
-                        <th>Actions</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,12 +42,12 @@ $result = $conn->query($sql);
                                 <?php if (!$row['is_admin']): ?>
                                     <form action="make_admin.php" method="post">
                                         <input type="hidden" name="user_id" value="<?= $row['user_id'] ?>">
-                                        <button type="submit" class="button1">Make Admin</button>
+                                        <button type="submit" class="button1">Jadikan Admin</button>
                                     </form>
                                 <?php else: ?>
                                     <form action="remove_admin.php" method="post">
                                         <input type="hidden" name="user_id" value="<?= $row['user_id'] ?>">
-                                        <button type="submit" class="button3">Remove Admin</button>
+                                        <button type="submit" class="button3">Jadikan User Biasa</button>
                                     </form>
                                 <?php endif; ?>
                             </td>
