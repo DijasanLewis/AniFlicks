@@ -41,25 +41,22 @@ if ($result->num_rows > 0) {
             </div>
         </section>
 
-        <section class="slider">
+        <section class="slider" id="slider-1">
             <h2>Rating Tertinggi</h2>
             <div class="slider-container">
                 <button class="slider-prev">&#10094;</button>
                 <div class="slider-wrapper">
                     <div class="slider-content">
                         <?php
-                        $result = $conn->query("SELECT * FROM titles ORDER BY rating DESC LIMIT 10");
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo '<a href="details.php?title_id=' . $row["title_id"] . '" class="card">';
-                                echo '<img src="' . $row["poster_path"] . '" alt="' . $row["name"] . '">';
-                                echo '<div class="card-content">';
-                                echo '<h3>' . $row["name"] . '</h3>';
-                                $release_year = date('Y', strtotime($row["release_date"]));
-                                echo '<p>' . $release_year . ', ' . $row["genre"] . '</p>';
-                                echo '</div>';
-                                echo '</a>';
-                            }
+                        foreach ($top_rated_movies as $movie) {
+                            echo '<a href="details.php?title_id=' . $movie["title_id"] . '" class="card">';
+                            echo '<img src="' . $movie["poster_path"] . '" alt="' . $movie["name"] . '">';
+                            echo '<div class="card-content">';
+                            echo '<h3>' . $movie["name"] . '</h3>';
+                            $release_year = date('Y', strtotime($movie["release_date"]));
+                            echo '<p>' . $release_year . ', ' . $movie["genre"] . '</p>';
+                            echo '</div>';
+                            echo '</a>';
                         }
                         ?>
                     </div>
@@ -68,7 +65,7 @@ if ($result->num_rows > 0) {
             </div>
         </section>
 
-        <section class="slider">
+        <section class="slider" id="slider-2">
             <h2>Terbaru</h2>
             <div class="slider-container">
                 <button class="slider-prev">&#10094;</button>
@@ -89,7 +86,7 @@ if ($result->num_rows > 0) {
                             }
                         }
                         ?>
-            </div>
+                    </div>
                 </div>
                 <button class="slider-next">&#10095;</button>
             </div>

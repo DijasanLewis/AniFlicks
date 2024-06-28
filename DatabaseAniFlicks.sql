@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Jun 2024 pada 10.57
+-- Waktu pembuatan: 29 Jun 2024 pada 06.13
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -40,7 +40,7 @@ CREATE TABLE `characters` (
 
 INSERT INTO `characters` (`character_id`, `title_id`, `name`, `image_path`) VALUES
 (136, 1, 'Eren Yeager', '../assets/images/characters/eren_yeager.jpg'),
-(137, 1, 'Mikasa Ackerman', '../assets/images/characters/mikasa_ackerman.jpg'),
+(137, 1, 'Mikasa Ackerman', '../assets/images/temporary/characters/mikasa_ackerman.jpg'),
 (138, 2, 'Naruto Uzumaki', '../assets/images/characters/naruto_uzumaki.jpg'),
 (139, 2, 'Sasuke Uchiha', '../assets/images/characters/sasuke_uchiha.jpg'),
 (140, 3, 'Monkey D. Luffy', '../assets/images/characters/luffy.jpg'),
@@ -113,7 +113,33 @@ INSERT INTO `characters` (`character_id`, `title_id`, `name`, `image_path`) VALU
 (207, 14, 'The Monster', '../assets/images/characters/the_monster.jpg'),
 (208, 15, 'Edgar', '../assets/images/characters/edgar.jpg'),
 (209, 15, 'Tanya', '../assets/images/characters/tanya.jpg'),
-(210, 15, 'Wilford', '../assets/images/characters/wilford.jpg');
+(210, 15, 'Wilford', '../assets/images/characters/wilford.jpg'),
+(211, NULL, 'Eren Yeager', '../assets/images/characters/66766dec9707b_Profil Yedija STIS.jpg'),
+(212, NULL, 'Mikasa Ackerman', NULL),
+(213, NULL, 'Armin Arlert', NULL),
+(214, NULL, 'Levi Ackerman', NULL),
+(215, NULL, 'Jean Kirstein', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `movie_suggestions`
+--
+
+CREATE TABLE `movie_suggestions` (
+  `id` int(11) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `suggestion` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `movie_suggestions`
+--
+
+INSERT INTO `movie_suggestions` (`id`, `title_id`, `user_id`, `suggestion`, `created_at`) VALUES
+(8, 1, 2, 'Genrenya tambah horror.\r\n\r\nStudionya ganti Mappa.', '2024-06-28 21:34:47');
 
 -- --------------------------------------------------------
 
@@ -136,7 +162,10 @@ CREATE TABLE `reviews` (
 INSERT INTO `reviews` (`review_id`, `title_id`, `user_id`, `comment`, `date_posted`) VALUES
 (1, 8, 1, 'Aku suka cuy', '2024-06-15 13:47:09'),
 (2, 8, 1, 'aku juga', '2024-06-15 13:51:36'),
-(3, 1, 1, 'Keren cuy!', '2024-06-15 14:34:03');
+(3, 1, 1, 'Keren cuy!', '2024-06-15 14:34:03'),
+(4, 1, 1, 'asdas', '2024-06-27 15:40:17'),
+(5, 7, 1, 'Keren banget', '2024-06-28 08:48:40'),
+(6, 1, 2, 'Iya, sangat keren', '2024-06-28 21:52:01');
 
 -- --------------------------------------------------------
 
@@ -148,6 +177,7 @@ CREATE TABLE `temporary_characters` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `title_id` int(11) DEFAULT NULL,
+  `character_id` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `image_path` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -159,22 +189,23 @@ CREATE TABLE `temporary_characters` (
 -- Struktur dari tabel `temporary_titles`
 --
 
-  CREATE TABLE `temporary_titles` (
-    `id` int(11) NOT NULL,
-    `user_id` int(11) DEFAULT NULL,
-    `name` varchar(255) NOT NULL,
-    `rating` decimal(3,2) DEFAULT NULL,
-    `release_date` date DEFAULT NULL,
-    `genre` varchar(100) DEFAULT NULL,
-    `writer` varchar(255) DEFAULT NULL,
-    `studio` varchar(255) DEFAULT NULL,
-    `poster_path` varchar(255) DEFAULT NULL,
-    `background_path` varchar(255) NOT NULL,
-    `trailer_link` varchar(255) DEFAULT NULL,
-    `sinopsis` text DEFAULT NULL,
-    `description` text DEFAULT NULL,
-    `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `temporary_titles` (
+  `id` int(11) NOT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `rating` decimal(3,2) DEFAULT NULL,
+  `release_date` date DEFAULT NULL,
+  `genre` varchar(100) DEFAULT NULL,
+  `writer` varchar(255) DEFAULT NULL,
+  `studio` varchar(255) DEFAULT NULL,
+  `poster_path` varchar(255) DEFAULT NULL,
+  `background_path` varchar(255) NOT NULL,
+  `trailer_link` varchar(255) DEFAULT NULL,
+  `sinopsis` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -203,7 +234,7 @@ CREATE TABLE `titles` (
 --
 
 INSERT INTO `titles` (`title_id`, `name`, `rating`, `release_date`, `genre`, `writer`, `studio`, `poster_path`, `background_path`, `trailer_link`, `sinopsis`, `description`, `approved`) VALUES
-(1, 'Attack on Titan', 9.00, '2013-04-07', 'Action, Drama, Fantasy', 'Hajime Isayama', 'Wit Studio', '../assets/images/uploads/posters/66760e200b126_attack_on_titan.jpg_poster.png', '../assets/images/uploads/backgrounds/66760e200b126_attack_on_titan_bg.jpg_bg.png', 'https://www.youtube.com/watch?v=LKP-vZvjbh8', 'Di dunia di mana Titan humanoid raksasa memangsa manusia, Eren Yeager bersumpah untuk menghancurkan Titan setelah kampung halamannya dihancurkan.', 'Attack on Titan adalah salah satu anime paling ikonik yang pernah ada, menggabungkan aksi yang mendebarkan dengan alur cerita yang mendalam dan karakter yang kompleks. Cerita ini berlangsung di dunia di mana manusia terkurung dalam kota tembok besar karena ancaman dari Titan, makhluk raksasa pemakan manusia. Eren Yeager, bersama dengan saudara angkatnya Mikasa Ackerman dan sahabatnya Armin Arlert, memulai perjalanan epik untuk mengalahkan Titan dan membalas dendam atas kampung halamannya yang hancur.\r\n\r\nDi tengah pertempuran melawan Titan, plot berkembang dengan pengungkapan misteri tentang asal-usul Titan dan kota-kota tembok. Seri ini tidak hanya menampilkan adegan pertarungan yang spektakuler, tetapi juga menyelidiki tema-tema seperti keberanian, pengorbanan, dan keyakinan. Karya ini sangat dipuji karena animasinya yang mengesankan dan musik latar yang mendukung suasana epiknya.\r\n\r\nAttack on Titan tidak hanya berhasil sebagai anime aksi, tetapi juga sebagai narasi yang menyentuh tentang manusia dan ambisi untuk bertahan hidup di tengah kehancuran. Dengan ketegangan yang tidak pernah surut dan plot twist yang tak terduga, anime ini terus menarik perhatian penonton dari awal hingga akhir.', 0),
+(1, 'Attack on Titan', 9.00, '2013-04-07', 'Action, Drama, Fantasy', 'Hajime Isayama', 'Wit Studio', '../assets/images/posters/667f2efe5c774_attack_on_titan.jpg_poster.png', '../assets/images/backgrounds/667f2efe5c774_attack_on_titan_bg.jpg_bg.png', 'https://www.youtube.com/watch?v=LKP-vZvjbh8', 'Di dunia di mana Titan humanoid raksasa memangsa manusia, Eren Yeager bersumpah untuk menghancurkan Titan setelah kampung halamannya dihancurkan.', 'Attack on Titan adalah salah satu anime paling ikonik yang pernah ada, menggabungkan aksi yang mendebarkan dengan alur cerita yang mendalam dan karakter yang kompleks. Cerita ini berlangsung di dunia di mana manusia terkurung dalam kota tembok besar karena ancaman dari Titan, makhluk raksasa pemakan manusia. Eren Yeager, bersama dengan saudara angkatnya Mikasa Ackerman dan sahabatnya Armin Arlert, memulai perjalanan epik untuk mengalahkan Titan dan membalas dendam atas kampung halamannya yang hancur.\r\n\r\nDi tengah pertempuran melawan Titan, plot berkembang dengan pengungkapan misteri tentang asal-usul Titan dan kota-kota tembok. Seri ini tidak hanya menampilkan adegan pertarungan yang spektakuler, tetapi juga menyelidiki tema-tema seperti keberanian, pengorbanan, dan keyakinan. Karya ini sangat dipuji karena animasinya yang mengesankan dan musik latar yang mendukung suasana epiknya.\r\n\r\nAttack on Titan tidak hanya berhasil sebagai anime aksi, tetapi juga sebagai narasi yang menyentuh tentang manusia dan ambisi untuk bertahan hidup di tengah kehancuran. Dengan ketegangan yang tidak pernah surut dan plot twist yang tak terduga, anime ini terus menarik perhatian penonton dari awal hingga akhir.', 0),
 (2, 'Naruto', 8.00, '2002-10-03', 'Action, Adventure, Fantasy', 'Masashi Kishimoto', 'Pierrot', '../assets/images/posters/naruto.jpg', '../assets/images/backgrounds/naruto_bg.jpg', 'https://www.youtube.com/watch?v=-G9BqkgZXRA', 'Naruto Uzumaki, seorang ninja remaja nakal, berjuang mencari pengakuan dan bermimpi menjadi Hokage, pemimpin desa dan ninja terkuat.', 'Naruto adalah salah satu serial anime paling ikonik yang pernah ada, menceritakan kisah seorang ninja muda yang penuh semangat untuk mencapai impian besar menjadi Hokage, pemimpin desa terkuat. Diciptakan oleh Masashi Kishimoto, cerita ini tidak hanya tentang petualangan fisik Naruto Uzumaki, tetapi juga tentang perjalanan rohani dan pertumbuhannya sebagai seorang ninja dan pemimpin.\r\n\r\nCerita dimulai dengan Naruto sebagai anak yang keras kepala dan nakal yang sering dianggap sebagai masalah oleh penduduk desa. Namun, dengan tekadnya yang kuat dan dukungan dari teman-temannya seperti Sasuke Uchiha dan Sakura Haruno, Naruto bertekad untuk membuktikan nilai dirinya dan melindungi orang-orang yang dicintainya. Penuh dengan aksi, humor, dan momen emosional, Naruto berhasil menangkap hati para penggemar di seluruh dunia.\r\n\r\nSelama perjalanannya, Naruto menghadapi berbagai tantangan, termasuk musuh yang kuat dan rahasia kelam dari masa lalunya. Dengan narasi yang mendalam tentang persahabatan, kesetiaan, dan pengorbanan, anime ini tidak hanya menawarkan aksi yang mendebarkan tetapi juga mengajarkan banyak pelajaran hidup. Naruto tetap menjadi salah satu ikon budaya pop yang paling diingat dalam sejarah anime.', 0),
 (3, 'One Piece', 9.00, '1999-10-20', 'Action, Adventure, Comedy', 'Eiichiro Oda', 'Toei Animation', '../assets/images/posters/one_piece.jpg', '../assets/images/backgrounds/one_piece_bg.jpg', 'https://www.youtube.com/watch?v=Oo52vQyAR6w', 'Mengikuti petualangan Monkey D. Luffy dan kru bajak lautnya untuk menemukan harta karun terbesar yang pernah ditinggalkan oleh bajak laut legendaris, Gold Roger.', 'One Piece adalah salah satu anime paling panjang dan paling terkenal sepanjang masa, yang mengikuti petualangan epik Monkey D. Luffy dan kru bajak lautnya dalam pencarian harta karun legendaris yang ditinggalkan oleh Raja Bajak Laut, Gol D. Roger. Diciptakan oleh Eiichiro Oda, cerita ini tidak hanya tentang pencarian harta karun, tetapi juga tentang ikatan kuat antara karakter utama dan pengorbanan yang mereka buat untuk mencapai impian mereka.\r\n\r\nLuffy, yang mendapatkan kekuatan elastisnya setelah memakan buah setan Gomu Gomu, memimpin kru bajak laut Topi Jerami dalam petualangan yang tak terhitung jumlahnya di Lautan Grand Line. Bersama dengan Zoro, Nami, Usopp, Sanji, Chopper, Robin, Franky, Brook, dan Jinbe, mereka menghadapi musuh-musuh kuat, aliansi yang berbahaya, dan misteri gelap yang mengelilingi sejarah dunia.\r\n\r\nSatu hal yang membuat One Piece menonjol adalah karakternya yang kuat dan kompleks, serta pengembangan dunia yang detail dan kaya. Meskipun telah berjalan selama bertahun-tahun, anime ini tetap populer berkat alur cerita yang menegangkan, aksi yang epik, dan pesan-pesan moral yang disampaikannya. One Piece tidak hanya anime, tetapi juga fenomena budaya yang telah memengaruhi generasi penggemar anime di seluruh dunia.', 0),
 (4, 'Demon Slayer', 8.50, '2019-04-06', 'Action, Adventure, Fantasy', 'Koyoharu Gotouge', 'Ufotable', '../assets/images/posters/demon_slayer.jpg', '../assets/images/backgrounds/demon_slayer_bg.jpg', 'https://www.youtube.com/watch?v=VQGCKyvzIM4', 'Sebuah keluarga diserang oleh iblis dan hanya dua anggota yang selamat - Tanjiro dan adiknya Nezuko, yang perlahan berubah menjadi iblis. Tanjiro berangkat menjadi pembunuh iblis untuk membalas keluarganya dan menyembuhkan adiknya.', 'Demon Slayer (Kimetsu no Yaiba) adalah anime yang menggabungkan aksi, petualangan, dan fantasi gelap dalam sebuah cerita yang menegangkan. Dibuat oleh Koyoharu Gotouge, anime ini mengikuti perjalanan Tanjiro Kamado, seorang pemuda yang menjadi pemburu iblis setelah keluarganya diserang oleh iblis dan adiknya, Nezuko, berubah menjadi iblis. Tanjiro berusaha untuk menyembuhkan adiknya sambil membalas dendam atas kematian keluarganya.\r\n\r\nPertempurannya melawan iblis membawanya bergabung dengan Corp Slayer Pedang yang mematikan, di mana dia bertemu dengan berbagai karakter yang kuat dan berwarna. Setiap pertarungan dalam Demon Slayer tidak hanya menampilkan aksi yang intens tetapi juga pengembangan karakter yang mendalam, baik dari protagonis maupun antagonisnya.\r\n\r\nSelain itu, anime ini juga mengeksplorasi tema-tema seperti persaudaraan, keberanian, dan pengorbanan. Latar belakang yang indah dan desain karakter yang memukau juga menjadi salah satu daya tarik utama dari Demon Slayer. Dengan kombinasi yang sempurna antara emosi yang mendalam dan visual yang memukau, anime ini berhasil mendapatkan tempat di hati jutaan penggemar di seluruh dunia.', 0),
@@ -231,16 +262,20 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `profile_image` varchar(255) DEFAULT '../assets/images/user_profiles/default_profile.png',
-  `is_admin` tinyint(1) DEFAULT 0
+  `is_admin` tinyint(1) DEFAULT 0,
+  `biodata` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `profile_image`, `is_admin`) VALUES
-(1, 'Dija', 'yedija@gmail.com', '$2y$10$fhkgbdFkHZnle5I5X7hjb.e155b6FKh3x0CK2FKikE3MFqiGxjQHa', '../assets/images/user_profiles/default_profile.png', 1),
-(2, 'UserBiasa', 'user@gmail.com', '$2y$10$847Z7G71mdfdykYmxaGJKuaf3kG6VzF9c/3p3JDiR89poS7rEv.tS', '../assets/images/user_profiles/default_profile.png', 0);
+INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `profile_image`, `is_admin`, `biodata`) VALUES
+(1, 'Admin', 'admin@gmail.com', '$2y$10$.jECdza38bhFUgXSzRbZgOxp8x2EGKSCTmy3NfjvIQXmEDDvdhu8.', '../assets/images/user_profiles/admin berkacamata.jpg', 1, 'Saya adalah Admin'),
+(2, 'User Biasa', 'user@gmail.com', '$2y$10$410doNstRfscLKHGqVLjrubVCB3Aqw3PNw.r7bQvqV8.SnGrGyWEa', '../assets/images/user_profiles/edit.png', 0, 'Saya hanya user biasa.'),
+(3, 'Aku', 'aku@gmail.com', '$2y$10$Jj0Ri4diOs7erhCxFBqjZeBmIqw8qf0oqfNuQNIHSS3Yc3UKAQHgS', '../assets/images/user_profiles/default_profile.png', 1, NULL),
+(4, 'user2', 'user2@gmail.com', '$2y$10$9qpUxwCcE4/SNjblqHb8OOSHYqjR/S/59NjV.WpdMFVQLkIgx5s12', '../assets/images/user_profiles/default_profile.png', 0, NULL),
+(5, 'User3', 'user3@gmail.com', '$2y$10$/ApBctg3DFAsREgowJcH.um.CDgId1jE892vB6PggWj9kAhNs4j5K', '../assets/images/user_profiles/default_profile.png', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -261,12 +296,19 @@ CREATE TABLE `watchlist` (
 --
 
 INSERT INTO `watchlist` (`watchlist_id`, `user_id`, `title_id`, `watched`, `rating`) VALUES
-(1, 1, 1, 'Akan Ditonton', NULL),
-(2, 1, 4, 'Sedang Ditonton', NULL),
 (3, 1, 12, 'Selesai Ditonton', 6),
-(4, 1, 5, 'Ditahan', NULL),
+(4, 1, 5, 'Akan Ditonton', 10),
 (5, 1, 6, 'Sedang Ditonton', 3),
-(6, 1, 2, 'Sedang Ditonton', 5);
+(6, 1, 2, 'Sedang Ditonton', 5),
+(7, 1, NULL, 'Sedang Ditonton', NULL),
+(8, 1, NULL, 'Sedang Ditonton', NULL),
+(9, 1, NULL, 'Sedang Ditonton', NULL),
+(10, 1, NULL, 'Sedang Ditonton', NULL),
+(11, 1, NULL, 'Sedang Ditonton', NULL),
+(19, 1, 7, 'Akan Ditonton', 8),
+(20, 1, 3, 'Akan Ditonton', NULL),
+(21, 1, NULL, 'Akan Ditonton', NULL),
+(22, 1, NULL, 'Akan Ditonton', NULL);
 
 --
 -- Indexes for dumped tables
@@ -277,6 +319,14 @@ INSERT INTO `watchlist` (`watchlist_id`, `user_id`, `title_id`, `watched`, `rati
 --
 ALTER TABLE `characters`
   ADD PRIMARY KEY (`character_id`),
+  ADD KEY `title_id` (`title_id`);
+
+--
+-- Indeks untuk tabel `movie_suggestions`
+--
+ALTER TABLE `movie_suggestions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
   ADD KEY `title_id` (`title_id`);
 
 --
@@ -331,43 +381,49 @@ ALTER TABLE `watchlist`
 -- AUTO_INCREMENT untuk tabel `characters`
 --
 ALTER TABLE `characters`
-  MODIFY `character_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
+  MODIFY `character_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
+
+--
+-- AUTO_INCREMENT untuk tabel `movie_suggestions`
+--
+ALTER TABLE `movie_suggestions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `temporary_characters`
 --
 ALTER TABLE `temporary_characters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT untuk tabel `temporary_titles`
 --
 ALTER TABLE `temporary_titles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `titles`
 --
 ALTER TABLE `titles`
-  MODIFY `title_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `title_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `watchlist`
 --
 ALTER TABLE `watchlist`
-  MODIFY `watchlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `watchlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -378,6 +434,13 @@ ALTER TABLE `watchlist`
 --
 ALTER TABLE `characters`
   ADD CONSTRAINT `characters_ibfk_1` FOREIGN KEY (`title_id`) REFERENCES `titles` (`title_id`);
+
+--
+-- Ketidakleluasaan untuk tabel `movie_suggestions`
+--
+ALTER TABLE `movie_suggestions`
+  ADD CONSTRAINT `movie_suggestions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `movie_suggestions_ibfk_2` FOREIGN KEY (`title_id`) REFERENCES `titles` (`title_id`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `reviews`
