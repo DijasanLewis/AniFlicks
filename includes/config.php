@@ -26,7 +26,7 @@ function db_connect() {
 }
 
 // URL dasar situs web Anda
-define('BASE_URL', 'http://localhost/aniflicks');
+define('BASE_URL', '..');
 
 // Path dasar untuk penyimpanan file
 define('BASE_PATH', __DIR__);
